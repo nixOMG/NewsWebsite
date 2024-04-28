@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.33.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/sib-api-v3-sdk-7.0.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/swagger-annotations-1.5.18.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/threetenbp-1.3.5.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/wagon-provider-api-1.0-beta-2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/plexus-utils-3.0.15.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-codec-1.16.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jjwt-api-0.11.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jjwt-impl-0.11.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jjwt-jackson-0.11.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-annotations-2.8.11.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-core-2.8.6.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-databind-2.8.11.3.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-logging-1.3.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/preflight-2.0.30.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/reflections-0.10.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/javassist.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/attoparser-2.0.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/slf4j-api-2.0.7.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/thymeleaf-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ognl-3.3.4.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/unbescape-1.1.6.RELEASE.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/elipselink2.5.2">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+			<attribute name="owner.project.facets" value="jpt.jpa"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
