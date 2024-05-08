@@ -71,7 +71,7 @@
 											</c:if>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==6}">
-												<li><a class="dropdown-item" href="manage-book">Admin's Page</a></li>
+												<li><a class="dropdown-item" href="manage-users">Admin's Page</a></li>
 											</c:if>
 											<li>
 												<hr class="dropdown-divider">

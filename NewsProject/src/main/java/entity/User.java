@@ -8,9 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +45,9 @@ public class User {
 	
 	@Column(name = "phone")
     private String phone;
+	
+	@Column(name = "bankAccount")
+    private String bankAccount;
 	
 	@Column(name = "dob")
     private Date dob;
@@ -159,5 +165,13 @@ public class User {
 
 	public void setDob(Date dob) {
 		this.dob = dob;
+	}
+
+	public String getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 }

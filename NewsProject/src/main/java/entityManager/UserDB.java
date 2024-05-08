@@ -187,4 +187,21 @@ public class UserDB {
             e.printStackTrace();
         }
     }
+
+	public boolean deleteUser(User user) {
+		EntityTransaction transaction=entityManager.getTransaction();
+		try {
+			transaction.begin();
+			entityManager.remove(user);
+			transaction.commit();
+			return true;
+		}
+		catch(Exception e) {
+			if (transaction.isActive()) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
