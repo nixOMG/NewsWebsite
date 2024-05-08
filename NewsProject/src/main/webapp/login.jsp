@@ -45,7 +45,7 @@
                         <input class="form__input" type="text" name="username" placeholder="Your username" required>                        
                         <input class="form__input" type="password"  name="password" id="passReg" placeholder="Password" required>
                         <input class="form__input" type="text" name="fullname" id="fullname"  placeholder="Your fullname" required>
-                        <input class="form__input" type="text" name="identificationId" id="identificationId"  placeholder="Your identification Id" required>
+                        <input class="form__input" type="text" name="idenId" id="idenId"  placeholder="Your identification Id" required>
                         <input class="form__input" type="number" name="age" id="age"  placeholder="Your age" required>
                         <input class="form__input" type="text" name="address" id="address"  placeholder="Your address" required>
                         <input class="form__input" type="text" name="phone" id="phone"  placeholder="Your phone number" required>

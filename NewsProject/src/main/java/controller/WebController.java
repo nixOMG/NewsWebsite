@@ -229,7 +229,7 @@ public class WebController extends HttpServlet {
 	                // Check roleID to direct web pages
 	                int roleId = loggedInUser.getRole().getRoleId();
 	                System.out.println("Check roleId: "+roleId);
-	                if (roleId>0 && roleId<=5) {
+	                if (roleId>1 && roleId<=6) {
 	                	response.sendRedirect(request.getContextPath() + "/home");
 	                } else {
 	                	request.setAttribute("errorMessage", "Login failed, please try again.");

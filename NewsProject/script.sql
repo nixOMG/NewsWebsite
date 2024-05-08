@@ -6,7 +6,7 @@ CREATE TABLE Role (
     description VARCHAR(255)
 );
 
-UPDATE user SET role_id=2 where user_id=1;
+UPDATE user SET role_id=6 where user_id=1;
 INSERT INTO Role (description) VALUES
 ('NOT ACTIVATED'),
 ('USER'),
@@ -20,7 +20,7 @@ select * from role;
 
 -- Force drop table (Replace Role with other tables's name)
 SET foreign_key_checks = 0;
-drop table Role;
+drop table subscriber;
 
 
 
