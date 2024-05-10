@@ -1,6 +1,7 @@
 package entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,15 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
-	private static final long serialVersionUID = 1L;
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -62,6 +59,10 @@ public class User {
 	@ManyToOne( cascade = CascadeType.REMOVE)
 	@JoinColumn(name="fav_id")
 	private Favourite fav;
+	
+	@OneToMany
+	@JoinColumn(name="category_id")
+	private List<Category> manageCategory;
 
 	public int getUserId() {
 		return userId;
@@ -174,4 +175,13 @@ public class User {
 	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
 	}
+
+	public List<Category> getManageCategory() {
+		return manageCategory;
+	}
+
+	public void setManageCategory(List<Category> manageCategory) {
+		this.manageCategory = manageCategory;
+	}
+
 }
