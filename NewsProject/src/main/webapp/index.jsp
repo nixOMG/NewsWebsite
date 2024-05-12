@@ -63,7 +63,7 @@
 											</li>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==4}">
-												<li><a class="dropdown-item" href="manage-book">Writer's Page</a></li>
+												<li><a class="dropdown-item" href="manage-articles">Writer's Page</a></li>
 											</c:if>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==5}">

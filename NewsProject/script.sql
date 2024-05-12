@@ -5,8 +5,21 @@ CREATE TABLE Role (
     role_id INT PRIMARY KEY auto_increment,
     description VARCHAR(255)
 );
+drop database newspaperonl;
 
-UPDATE user SET role_id=6 where user_id=1;
+select * from article;
+select * from user;
+select * from role;
+select * from category;
+select * from image;
+select * from tag;
+
+-- Force drop table (Replace Role with other tables's name)
+SET foreign_key_checks = 0;
+drop table user;
+
+
+UPDATE user SET role_id=4 where user_id=1;
 INSERT INTO Role (description) VALUES
 ('NOT ACTIVATED'),
 ('USER'),
@@ -15,12 +28,19 @@ INSERT INTO Role (description) VALUES
 ('EDITOR'),
 ('ADMIN');
 
-select * from user;
-select * from role;
+INSERT INTO Tag (tag_id, name) VALUES (1, 'Thể thao');
+INSERT INTO Tag (tag_id, name) VALUES (2, 'Chính trị');
+INSERT INTO Tag (tag_id, name) VALUES (3, 'Giáo dục');
+INSERT INTO Tag (tag_id, name) VALUES (4, 'Đời sống');
+INSERT INTO Tag (tag_id, name) VALUES (5, 'Khoa học');
 
--- Force drop table (Replace Role with other tables's name)
-SET foreign_key_checks = 0;
-drop table subscriber;
+
+INSERT INTO Category (category_id, description, user_id) VALUES (1, "Thể thao", 1);
+INSERT INTO Category (category_id, description, user_id) VALUES (2, "Chính trị", 1);
+INSERT INTO Category (category_id, description, user_id) VALUES (3, "Giáo dục", 1);
+INSERT INTO Category (category_id, description, user_id) VALUES (4, "Khoa học", 1);
+
+
 
 
 

@@ -17,15 +17,19 @@ public class Category implements Serializable {
 	public Category() {
 		super();
 	}
-	private int categoryId;
-    private String description;
+	
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
+    private int categoryId;
+    
     public int getCategoryId() {
         return categoryId;
     }
 	@Column(name = "description")
+	private String description;
+	
 	public String getDescription() {
 		return description;
 	}

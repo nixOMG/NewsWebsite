@@ -7,6 +7,8 @@
         <class>entity.Role</class>
         <class>entity.Favourite</class>
         <class>entity.Category</class>
+        <class>entity.Image</class>
+        <class>entity.Tag</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
 	      <property name="javax.persistence.jdbc.url" 
