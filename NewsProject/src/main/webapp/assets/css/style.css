@@ -1665,7 +1665,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     margin-bottom: 20px
 }
 
-.contact_form input[type="text"], .contact_form input[type="email"], .contact_form textarea {
+.contact_form input[type="file"], .contact_form input[type="text"], .contact_form input[type="email"], .contact_form textarea {
     border-radius: 0;
     margin-bottom: 30px
 }
@@ -1683,7 +1683,20 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .contact_form input[type="submit"]:hover {
     border: 1px solid #d083cf
 }
-
+.content {
+	display: block;
+	width: 100%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+}
 @media(max-width: 1199px ) {
     .logo_area {
         width:34%
