@@ -8,7 +8,7 @@
                 <html>
 
                 <head>
-                    <title>NewsFeed | Writer | Add Article</title>
+                    <title>NewsFeed | Writer | Delete Article</title>
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -134,38 +134,24 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="left_content">
                                         <div class="contact_area">
-                                            <h2>Add Article</h2>
+                                            <h2>Delete Article</h2>
                                             <form action="manage-articles" method="post" class="contact_form"
                                                 enctype="multipart/form-data" accept-charset="UTF-8">
-                                                <input type="hidden" name="action" value="add-article" />
-                                                <input type="hidden" name="writerId" value="${writerId}" />
+                                                <input type="hidden" name="action" value="delete-article" />
+                                                <input type="hidden" name="articleId" value="${article.articleId}"/>
 
                                                 <label for="name" class="form-label">Title of this article:</label>
                                                 <input type="text" class="form-control" id="title" name="title"
-                                                    placeholder="Title*">
-
-                                                <label for="image" class="form-label">Add image(s):</label>
-                                                <input type="file" class="form-control" id="image" name="image"
-                                                    accept="image/*" multiple>
+                                                    value="${article.title}" disabled>
 
                                                 <label for="content" class="form-label">Content:</label>
-                                                <textarea class="content" cols="30" rows="10" name="content"></textarea>
+                                                <textarea class="content" cols="30" rows="10" name="content" disabled></textarea>
 
                                                 <label for="translator" class="form-label">Category:</label>
-                                                <select class="form-select" id="category" name="categoryId">
-                                                    <c:forEach var="category" items="${categories}">
-                                                        <option value="${category.categoryId}">
-                                                            ${category.description}</option>
-                                                    </c:forEach>
-                                                </select>
-                                                <select class="form-select" id="tag" name="tagId" multiple>
-                                                    <c:forEach var="tag" items="${tags}">
-                                                        <option value="${tag.tagId}">
-                                                            ${tag.name}</option>
-                                                    </c:forEach>
-                                                </select>
+                                                <input type="text" class="form-control" id="category" name="categoryId"
+                                                    value="${article.category.description}" disabled>
 
-                                                <button type="submit" class="btn btn-primary">Submit Article</button>
+                                                <button type="submit" class="btn btn-primary">Delete Article</button>
                                             </form>
                                         </div>
                                     </div>
@@ -233,11 +219,13 @@
                     <script>
                         $(document).ready(function () {
                             // Initialize the rich text editor
-                            var editor = $('.content').richText({
-                                fileUpload: false,
-                                videoEmbed: false,
-                                table: false
-                            });
+                            $('.content').val('${article.content}');
+					    	 var editor = $('.content').richText({
+					 	    	fileUpload:false,
+					     		videoEmbed: false,
+					     		table:false,
+					     		preview: true
+					 	    });
 
                             $('#image').change(function () {
                                 var uuid = window.uuid.v4();

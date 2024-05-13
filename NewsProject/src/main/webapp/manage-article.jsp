@@ -94,17 +94,26 @@
         <tr class="w3-light-grey">
             <th>ID</th>
             <th>Title</th>
+            <th>Content</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Tags</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <c:forEach var="article" items="${articles}" varStatus="loop">
             <tr>
-                <td><c:out value="${(pageNumber - 1) * pageSize + loop.index + 1}" /></td>
                 <td><c:out value="${article.articleId}" /></td>
                 <td><c:out value="${article.title}" /></td>
                 <td><c:out value="${article.content}" /></td>
                 <td><c:out value="${article.status}" /></td>
+                <td><c:out value="${article.category.description}" /></td>
+                <td>
+		            <c:forEach var="tag" items="${article.tags}">
+		                <c:out value="${tag.name}, " />
+		            </c:forEach>
+		        </td>
                 <td>
 					  	<a style="margin-right: 10px" href="manage-articles?action=get-page-edit-article&articleId=${article.articleId}"><i class="fa-solid fa-pencil">Edit</i></a>
 					  	<a href="manage-articles?action=get-page-delete-article&articleId=${article.articleId}"><i class="fa-solid fa-trash">Delete</i></a>
