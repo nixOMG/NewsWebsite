@@ -62,10 +62,14 @@ public class WebController extends HttpServlet {
    		else if (action != null && action.equals("faq")) {
    		    response.sendRedirect(request.getContextPath() + "/faq.jsp");
    		}
+   		else if (action != null && action.equals("admin")){
+   			response.sendRedirect(request.getContextPath() + "/admin");
+   		}
    		else if (servletPath==null || servletPath.equals("/home") || servletPath.equals("/index.jsp") || (action==null)) {
    			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
    		    rd.forward(request, response);
    		}
+   		
    		else {
    			response.sendRedirect(request.getContextPath() + "/error404.html");
    		}
