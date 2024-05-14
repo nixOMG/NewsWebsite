@@ -60,6 +60,8 @@ public class WebController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/read.jsp");
 		} else if (action != null && action.equals("faq")) {
 			response.sendRedirect(request.getContextPath() + "/faq.jsp");
+		} else if (action != null && action.equals("admin")) {
+			response.sendRedirect(request.getContextPath() + "/admin");
 		} else if (servletPath == null || servletPath.equals("/home") || servletPath.equals("/index.jsp")
 				|| (action == null)) {
 			EntityManager entityManager = DBUtil.getEntityManager();
