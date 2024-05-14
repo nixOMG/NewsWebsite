@@ -146,12 +146,11 @@
 		</aside>
 
 		<!-- =============================================== -->
-
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Account Manage Page</h1>
+				<h1>Comment Mamage Page</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Examples</a></li>
@@ -160,92 +159,57 @@
 			</section>
 
 			<!-- Main content -->
-			<section class="container">
+			<section class="content">
 
 				<!-- Default box -->
-				<div class="col-md-8">
-					<!-- general form elements -->
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">Cập nhật tài khoản</h3>
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="box-header">
+
+							<div class="box-tools">
+								<div class="input-group input-group-sm" style="width: 150px;">
+									<input type="text" name="table_search"
+										class="form-control pull-right" placeholder="Search">
+
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-default">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
 						</div>
 						<!-- /.box-header -->
-						<!-- form start -->
-						<form action="admin" method="post" accept-charset="UTF-8">
-							<input type="hidden" name="action" value="edit-account" /> <input
-								type="hidden" name="userId" value="${user.userId}" />
-							<div class="box-body">
-								<div class="form-group">
-									<label for="name" class="form-label">User name </label> <input
-										type="text" class="form-control" id="username" name="username"
-										value="${user.username}" required>
-								</div>
+						<div class="box-body table-responsive no-padding">
+							<table class="table table-hover" style="margin: 20px auto;">
+								<tbody>
+									<tr>
+										<th>Comment ID</th>
+										<th>Content</th>
+										<th>User</th>
+										<th>Article</th>
+										<th>Time</th>
+										<th>Actions</th>
+									</tr>
+									<c:forEach var="comment" items="${comments}" varStatus="loop">
+										<tr>
+											<td><c:out value="${comment.commentId}" /></td>
+											<td><c:out value="${comment.content}" /></td>
+											<td><c:out value="${comment.user.username}" /></td>
+											<td><c:out value="${comment.article.title}" /></td>
+											<td><c:out value="${comment.time}" /></td>
+											<td><a class="btn btn-danger"
+												href="comments?action=delete-comment&commentId=${comment.commentId}">Delete</a>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 
-								<div class="form-group">
-									<label for="email" class="form-label">Email address</label> <input
-										class="form-control" type="email" name="email" id="emailReg"
-										value="${user.email}" required>
-								</div>
-
-								<div class="form-group">
-									<label for="fullname" class="form-label">Full name</label> <input
-										class="form-control" type="text" name="fullname" id="fullname"
-										value="${user.fullname}" required>
-								</div>
-
-								<div class="form-group">
-									<label for="id" class="form-label">Identification Id
-									</label> <input class="form-control" type="text" name="idenId"
-										id="idenId" value="${user.identificationId}" required>
-								</div>
-
-
-								<div class="form-group">
-									<label for="age" class="form-label">Age </label> <input
-										class="form-control" type="number" name="age" id="age"
-										value="${user.age}" required>
-								</div>
-
-								<div class="form-group">
-									<label for="address" class="form-label">Address </label> <input
-										class="form-control" type="text" name="address" id="address"
-										value="${user.address}" required>
-								</div>
-
-								<div class="form-group">
-									<label for="phone" class="form-label">Phone number </label> <input
-										class="form-control" type="text" name="phone" id="phone"
-										value="${user.phone}" required>
-								</div>
-
-								<div class="form-group">
-									<label for="dob" class="form-label">Date of birth </label> <input
-										class="form-control" type="date" name="dob" id="dob"
-										value="${user.dob}" required>
-								</div>
-
-								<div class="form-group">
-									<label for="role" class="form-label">Role:</label> <select
-										class="form-select" id="role" name="roleId">
-										<c:forEach var="role" items="${roles}">
-											<option value="${role.roleId}"
-												<c:if test="${role.roleId == user.role.roleId}">selected</c:if>>${role.description}</option>
-										</c:forEach>
-									</select>
-								</div>
-
-							</div>
-
-							<!-- /.box-body -->
-
-							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Cập nhật</button>
-							</div>
-						</form>
+						<!-- /.box-body -->
 					</div>
-
 					<!-- /.box -->
-
 				</div>
 				<!-- /.box -->
 

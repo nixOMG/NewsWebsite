@@ -130,7 +130,7 @@
 							class="fa fa-th"></i> <span>Account Manager</span>
 					</a></li>
 
-					<li><a href=""> <i class="fa fa-th"></i> <span>Comment
+					<li><a href="admin?action=get-page-manage-comment"> <i class="fa fa-th"></i> <span>Comment
 								Manager </span>
 
 					</a></li>
