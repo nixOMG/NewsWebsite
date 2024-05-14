@@ -19,7 +19,7 @@ SET foreign_key_checks = 0;
 drop table user;
 
 
-UPDATE user SET role_id=4 where user_id=1;
+UPDATE user SET role_id=5 where user_id=2;
 INSERT INTO Role (description) VALUES
 ('NOT ACTIVATED'),
 ('USER'),

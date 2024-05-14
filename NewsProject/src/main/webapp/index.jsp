@@ -40,7 +40,7 @@
 					<div class="header_top">
 						<div class="header_top_left">
 							<div class="logo_area">
-								<a href="index.html" class="logo"><img src="images/logo.jpg"
+								<a href="home" class="logo"><img src="images/logo.jpg"
 									alt=""></a>
 							</div>
 						</div>
@@ -63,11 +63,11 @@
 											</li>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==4}">
-												<li><a class="dropdown-item" href="manage-articles">Writer's Page</a></li>
+												<li><a class="dropdown-item" href="writer-manage-articles">Writer's Page</a></li>
 											</c:if>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==5}">
-												<li><a class="dropdown-item" href="manage-book">Editor's Page</a></li>
+												<li><a class="dropdown-item" href="editor-manage-articles">Editor's Page</a></li>
 											</c:if>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==6}">
@@ -96,7 +96,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="header_bottom">
 						<div class="logo_area">
-							<a href="index.html" class="logo"><img src="images/logo.jpg"
+							<a href="home" class="logo"><img src="images/logo.jpg"
 								alt=""></a>
 						</div>
 						<div class="add_banner">
@@ -119,7 +119,7 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav main_nav">
-						<li class="active"><a href="index.html"><span
+						<li class="active"><a href="home"><span
 								class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
 						<li><a href="#">Technology</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -878,7 +878,7 @@
 			</div>
 			<div class="footer_bottom">
 				<p class="copyright">
-					Copyright &copy; 2045 <a href="index.html">NewsFeed</a>
+					Copyright &copy; 2045 <a href="home">NewsFeed</a>
 				</p>
 				<p class="developer">Developed By Wpfreeware</p>
 			</div>

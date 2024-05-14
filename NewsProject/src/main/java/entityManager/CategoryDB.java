@@ -66,6 +66,18 @@ public class CategoryDB {
 	public Category getCategoryById(int categoryId) {
 		return entityManager.find(Category.class, categoryId);
 	}
+	
+	public List<Integer> getCategoryByUserId(int userId){
+	    try {
+	        TypedQuery<Integer> query = entityManager.createQuery("SELECT c.categoryId FROM Category c WHERE c.user.userId= :userId", Integer.class);
+	        query.setParameter("userId", userId);
+	        return query.getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
 
 	public List<Category> getAllCategories() {
 		try {

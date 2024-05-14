@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -12,16 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import entity.Article;
-import entity.Category;
-import entity.Role;
-import entity.Tag;
 import entity.User;
-import entityManager.ArticleDB;
-import entityManager.CategoryDB;
-import entityManager.RoleDB;
-import entityManager.TagDB;
+
 import entityManager.UserDB;
 import utils.DBUtil;
 

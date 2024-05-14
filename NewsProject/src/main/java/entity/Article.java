@@ -39,7 +39,7 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "writer_id")
     private User writer; //has role writer
-    
+
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;

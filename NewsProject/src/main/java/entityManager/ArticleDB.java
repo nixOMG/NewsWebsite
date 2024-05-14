@@ -1,6 +1,8 @@
 package entityManager;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -8,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import entity.Article;
 import entity.Category;
+import entity.User;
 
 public class ArticleDB {
 	private final EntityManager entityManager;
@@ -85,21 +88,36 @@ public class ArticleDB {
 		query.setMaxResults(pageSize);
 		return query.getResultList();
 	}
-	
-	
 
-	public List<Article> getArticlesPagedByStatus(int pageNumber, int pageSize, String status) {
-		TypedQuery<Article> query = entityManager.createQuery("SELECT a FROM Article a WHERE a.status = :status",
+	public List<Article> getArticlesByCategoryAndStatus(List<Integer> categoryIds, String status) {
+		if (categoryIds == null) {
+			System.out.println("User has no categories!");
+			return new ArrayList<>();
+		}
+
+		TypedQuery<Article> query = entityManager.createQuery(
+				"SELECT a FROM Article a WHERE a.status = :status AND a.category.categoryId IN :categoryIds",
 				Article.class);
 		query.setParameter("status", status);
-		query.setFirstResult((pageNumber - 1) * pageSize);
-		query.setMaxResults(pageSize);
+		query.setParameter("categoryIds", categoryIds);
 		return query.getResultList();
 	}
-	
+
+	public List<Article> getArticlesByCategories(List<Integer> categoryIds) {
+		if (categoryIds == null) {
+			System.out.println("User has no categories!");
+			return new ArrayList<>();
+		}
+
+		TypedQuery<Article> query = entityManager
+				.createQuery("SELECT a FROM Article a WHERE a.category.categoryId IN :categoryIds", Article.class);
+		query.setParameter("categoryIds", categoryIds);
+		return query.getResultList();
+	}
+
 	public List<Article> getArticlesPagedByWriterId(int pageNumber, int pageSize, int writerId) {
-		TypedQuery<Article> query = entityManager.createQuery("SELECT a FROM Article a WHERE a.writer.userId = :writerId",
-				Article.class);
+		TypedQuery<Article> query = entityManager
+				.createQuery("SELECT a FROM Article a WHERE a.writer.userId = :writerId", Article.class);
 		query.setParameter("writerId", writerId);
 		query.setFirstResult((pageNumber - 1) * pageSize);
 		query.setMaxResults(pageSize);
@@ -107,21 +125,21 @@ public class ArticleDB {
 	}
 
 	public List<Article> getArticlesByCategoryId(int categoryId) {
-		TypedQuery<Article> query = entityManager.createQuery("SELECT a FROM Article a WHERE a.category.categoryId = :categoryId",
-				Article.class);
+		TypedQuery<Article> query = entityManager
+				.createQuery("SELECT a FROM Article a WHERE a.category.categoryId = :categoryId", Article.class);
 		query.setParameter("categoryId", categoryId);
 		return query.getResultList();
 	}
-	
-	
-	
+
 	public Long getArticlesCount() {
 		TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(a) FROM Article a", Long.class);
 
 		return query.getSingleResult();
 	}
+
 	public Long countAllArticlesByWriterId(int writerId) {
-		TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(a) FROM Article a WHERE a.writer.userId= :writerId", Long.class);
+		TypedQuery<Long> query = entityManager
+				.createQuery("SELECT COUNT(a) FROM Article a WHERE a.writer.userId= :writerId", Long.class);
 		query.setParameter("writerId", writerId);
 		return query.getSingleResult();
 	}

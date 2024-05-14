@@ -8,7 +8,7 @@
                 <html lang="en">
 
                 <head>
-                    <title>NewsFeed | Writer | Add Article</title>
+                    <title>NewsFeed | User | Edit Profile</title>
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +37,7 @@
                                     <div class="header_top">
                                         <div class="header_top_left">
                                             <ul class="top_nav">
-                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="home">Home</a></li>
                                                 <li><a href="#">About</a></li>
                                                 <li><a href="contact.html">Contact</a></li>
                                             </ul>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="header_bottom">
-                                        <div class="logo_area"><a href="index.html" class="logo"><img
+                                        <div class="logo_area"><a href="home" class="logo"><img
                                                     src="images/logo.jpg" alt=""></a></div>
                                         <div class="add_banner"><a href="#"><img src="images/addbanner_728x90_V1.jpg"
                                                     alt=""></a></div>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div id="navbar" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav main_nav">
-                                        <li class="active"><a href="index.html"><span
+                                        <li class="active"><a href="home"><span
                                                     class="fa fa-home desktop-home"></span><span
                                                     class="mobile-show">Home</span></a></li>
                                         <li><a href="#">Technology</a></li>
@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                             <div class="footer_bottom">
-                                <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
+                                <p class="copyright">Copyright &copy; 2045 <a href="home">NewsFeed</a></p>
                                 <p class="developer">Developed By Wpfreeware</p>
                             </div>
                         </footer>
