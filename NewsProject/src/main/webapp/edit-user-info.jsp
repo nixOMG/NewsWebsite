@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="utf-8" %>
     <%@ page import="javax.servlet.http.HttpSession" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -8,7 +8,7 @@
                 <html lang="en">
 
                 <head>
-                    <title>NewsFeed | Writer | Edit Article</title>
+                    <title>NewsFeed | Writer | Add Article</title>
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -134,43 +134,43 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="left_content">
                                         <div class="contact_area">
-                                            <h2>Edit Article</h2>
-                                            <form action="manage-articles" method="post" class="contact_form"
+                                            <h2>Edit Profile</h2>
+                                            <form action="manage-user-info" method="post" class="contact_form" 
                                                 enctype="multipart/form-data" accept-charset="UTF-8">
-                                                <input type="hidden" name="action" value="edit-article" />
-                                                <input type="hidden" name="writerId" value="${writerId}" />
-												<input type="hidden" name="articleId" value="${article.articleId}" />
+                                                <input type="hidden" name="action" value="edit-user-info" />
+                                                <input type="hidden" name="userId" value="${userId}" />
+
+												<label for="email" class="form-label">Your email:</label>
+												<input type="email" class="form-control" id="email" name="email" value="${user.email}" disabled>
 												
-                                                <label for="name" class="form-label">Title of this article:</label>
-                                                <input type="text" class="form-control" id="title" name="title"
-                                                    value="${article.title}" required>
+												<label for="username" class="form-label">Username:</label>
+												<input type="text" class="form-control" id="username" name="username" value="${user.username}" required>
+																							
+												<label for="fullname" class="form-label">Full name:</label>
+												<input type="text" class="form-control" id="fullname" name="fullname" value="${user.fullname}" required>
+												
+												<label for="idenId" class="form-label">Your identification Id:</label>
+												<input type="text" class="form-control" id="idenId" name="idenId" value="${user.identificationId}" required>
+												
+												<label for="age" class="form-label">Your age:</label>
+												<input type="number" class="form-control" id="age" name="age" value="${user.age}" required>
+												
+												<label for="address" class="form-label">Your address:</label>
+												<input type="text" class="form-control" id="address" name="address" value="${user.address}" required>
+												
+												<label for="phone" class="form-label">Your phone number:</label>
+												<input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" required>
 
-                                                <label for="image" class="form-label">Add image(s):</label>
-                                                <input type="file" class="form-control" id="image" name="image"
-                                                    accept="image/*" multiple>
-
-                                                <label for="content" class="form-label">Content:</label>
-                                                <textarea class="content" cols="30" rows="10" name="content"></textarea>
-
-                                                <label for="category" class="form-label">Category:</label>
-                                                <select class="form-control form-select" id="category" name="categoryId">
-                                                    <c:forEach var="category" items="${categories}">
-                                                        <option value="${category.categoryId}" <c:if test="${category.categoryId == article.category.categoryId}">selected</c:if>>
-                                                            ${category.description}</option>
-                                                    </c:forEach>
-                                                </select>
-                                                <label for="tag" class="form-label">Tag:</label>
-                                                <select class="form-control form-select" id="tag" name="tagId" multiple>
-                                                    <c:forEach var="tag" items="${tags}">
-                                                        <option value="${tag.tagId}"
-                                                        	<c:forEach var="articleTag" items="${article.tags}">
-												                <c:if test="${tag.tagId == articleTag.tagId}">selected</c:if>
-												                </c:forEach>
-                                                            >${tag.name}</option>
-                                                    </c:forEach>
-                                                </select>
-
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
+												<label for="bankaccount" class="form-label">Your bank account:</label>
+												<input type="text" class="form-control" id="bankaccount" name="bankaccount" value="${user.bankAccount}">
+																								
+												<label for="dob" class="form-label">Your date of birth: </label>
+												<input type="date" class="form-control" id="dob" name="dob" value="${user.dob}" required>
+												
+												<label for="password" class="form-label">Password:</label>
+												<a href="resetPass.jsp" class="form-control form__link" style="margin-bottom: 30px">Change password</a>
+                                                
+                                                <button type="submit" class="btn btn-primary">Save change</button>
                                             </form>
                                         </div>
                                     </div>
@@ -232,66 +232,7 @@
                     <script src="assets/js/jquery.newsTicker.min.js"></script>
                     <script src="assets/js/jquery.fancybox.pack.js"></script>
                     <script src="assets/js/custom.js"></script>
-                    
-                    
 
-                    <script>
-                        $(document).ready(function () {
-                            // Initialize the rich text editor
-                            $('.content').val('${article.content}');
-                            var editor = $('.content').richText({
-                                fileUpload: false,
-                                videoEmbed: false,
-                                table: false
-                            });
-
-                            $('#image').change(function () {
-                                var uuid = window.uuid.v4();
-                                var files = this.files;
-                                var baseUrl = window.location.origin;
-                                var contextPath = window.location.pathname.split('/')[1];
-
-                                var promises = $.map(files, function (file) {
-                                    var formData = new FormData();
-                                    formData.append('image', file);
-
-                                    return $.ajax({
-                                        url: '/NewsProject/manage-articles?action=upload-image&uuid=' + uuid,
-                                        type: 'POST',
-                                        data: formData,
-                                        contentType: false,
-                                        processData: false
-                                    });
-                                });
-
-                                Promise.all(promises).then(function (results) {
-                                    $.each(results, function (i, data) {
-                                        console.log(data);
-                                        console.log(data.url);
-                                        var imageUrl = baseUrl + '/' + contextPath + data.url;
-                                        var imgTag = '<img src="' + imageUrl + '" style="object-fit:contain;width:1000px;height:1000px;" class="container d-flex align-items-center my-5">';
-
-                                        var selection = window.getSelection();
-                                        var range = selection.getRangeAt(0);
-
-                                        var tempDiv = document.createElement('div');
-                                        tempDiv.innerHTML = imgTag;
-                                        tempDiv.classList.add("container-xl", "pt-3");
-
-                                        range.deleteContents();
-                                        range.insertNode(tempDiv);
-                                        range.setStartAfter(tempDiv);
-                                        range.setEndAfter(tempDiv);
-                                        selection.removeAllRanges();
-                                        selection.addRange(range);
-                                    });
-                                });
-                            });
-                        });
-
-
-
-                    </script>
                 </body>
 
                 </html>

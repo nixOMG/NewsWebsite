@@ -8,6 +8,24 @@ Version: 1.0
 License: GPL
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
+.custom-media-body {
+    padding-left: 20px; /* Khoảng cách từ lề trái */
+    overflow: hidden; /* Tránh tràn ra ngoài */
+}
+
+.custom-media-body h4 {
+    margin-bottom: 5px; /* Khoảng cách giữa tiêu đề và nội dung */
+    font-size: 16px; /* Kích thước tiêu đề */
+}
+
+.custom-media-body p {
+    margin-bottom: 5px; /* Khoảng cách giữa nội dung và các nút hành động */
+    font-size: 16px; /* Kích thước nội dung */
+}
+.table-header {
+    background-color: rgb(192, 192, 192);
+    font-weight: bold; 
+}
 body {
     background: #f5f5f5
 }
@@ -1665,7 +1683,12 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     margin-bottom: 20px
 }
 
-.contact_form input[type="text"], .contact_form input[type="email"], .contact_form textarea {
+.contact_form input[type="text"],
+ .contact_form input[type="email"],
+ .contact_form input[type="number"],
+ .contact_form input[type="date"],
+  .contact_form textarea
+  .contact_form a.form__link {
     border-radius: 0;
     margin-bottom: 30px
 }

@@ -23,8 +23,8 @@
                     <link rel="stylesheet" type="text/css" href="assets/css/theme.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
                     <!--[if lt IE 9]>
-<script src="../assets/js/html5shiv.min.js"></script>
-<script src="../assets/js/respond.min.js"></script>
+<script src="assets/js/html5shiv.min.js"></script>
+<script src="assets/js/respond.min.js"></script>
 <![endif]-->
                 </head>
 
@@ -37,7 +37,7 @@
                                     <div class="header_top">
                                         <div class="header_top_left">
                                             <ul class="top_nav">
-                                                <li><a href="../index.html">Home</a></li>
+                                                <li><a href="index.html">Home</a></li>
                                                 <li><a href="#">About</a></li>
                                                 <li><a href="contact.html">Contact</a></li>
                                             </ul>
@@ -49,9 +49,9 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="header_bottom">
-                                        <div class="logo_area"><a href="../index.html" class="logo"><img
-                                                    src="../images/logo.jpg" alt=""></a></div>
-                                        <div class="add_banner"><a href="#"><img src="../images/addbanner_728x90_V1.jpg"
+                                        <div class="logo_area"><a href="index.html" class="logo"><img
+                                                    src="images/logo.jpg" alt=""></a></div>
+                                        <div class="add_banner"><a href="#"><img src="images/addbanner_728x90_V1.jpg"
                                                     alt=""></a></div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div id="navbar" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav main_nav">
-                                        <li class="active"><a href="../index.html"><span
+                                        <li class="active"><a href="index.html"><span
                                                     class="fa fa-home desktop-home"></span><span
                                                     class="mobile-show">Home</span></a></li>
                                         <li><a href="#">Technology</a></li>
@@ -94,23 +94,23 @@
                                 <div class="col-lg-12 col-md-12">
                                     <div class="latest_newsarea"> <span>Latest News</span>
                                         <ul id="ticker01" class="news_sticker">
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My First
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My First
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Second
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Second
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Third
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Third
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Four News
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Four News
                                                     Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Five News
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Five News
                                                     Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Six News
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Six News
                                                     Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Seven
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Seven
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Eight
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Eight
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail2.jpg" alt="">My Nine News
+                                            <li><a href="#"><img src="images/news_thumbnail2.jpg" alt="">My Nine News
                                                     Item</a></li>
                                         </ul>
                                         <div class="social_area">
@@ -147,9 +147,23 @@
                                                 <label for="content" class="form-label">Content:</label>
                                                 <textarea class="content" cols="30" rows="10" name="content" disabled></textarea>
 
-                                                <label for="translator" class="form-label">Category:</label>
-                                                <input type="text" class="form-control" id="category" name="categoryId"
-                                                    value="${article.category.description}" disabled>
+                                                <label for="category" class="form-label">Category:</label>
+                                                <select class="form-control form-select" id="category" name="categoryId" disabled>
+                                                    <c:forEach var="category" items="${categories}">
+                                                        <option value="${category.categoryId}" <c:if test="${category.categoryId == article.category.categoryId}">selected</c:if>>
+                                                            ${category.description}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <label for="tag" class="form-label">Tag:</label>
+                                                <select class="form-control form-select" id="tag" name="tagId" multiple disabled>
+                                                    <c:forEach var="tag" items="${tags}">
+                                                        <option value="${tag.tagId}"
+                                                        	<c:forEach var="articleTag" items="${article.tags}">
+												                <c:if test="${tag.tagId == articleTag.tagId}">selected</c:if>
+												                </c:forEach>
+                                                            >${tag.name}</option>
+                                                    </c:forEach>
+                                                </select>
 
                                                 <button type="submit" class="btn btn-primary">Delete Article</button>
                                             </form>
@@ -196,15 +210,15 @@
                                 </div>
                             </div>
                             <div class="footer_bottom">
-                                <p class="copyright">Copyright &copy; 2045 <a href="../index.html">NewsFeed</a></p>
+                                <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
                                 <p class="developer">Developed By Wpfreeware</p>
                             </div>
                         </footer>
                     </div>
                     
-                    <script type="text/javascript" src="./assets/js/bootstrap.bundle.min.js"></script>
-                    <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
-                    <script type="text/javascript" src="./assets/js/jquery.richtext.min.js"></script>
+                    <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
+                    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+                    <script type="text/javascript" src="assets/js/jquery.richtext.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
                     <script src="assets/js/wow.min.js"></script>
                     <script src="assets/js/bootstrap.min.js"></script>

@@ -5,7 +5,7 @@
             <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
                 <!DOCTYPE html>
-                <html>
+                <html lang="en">
 
                 <head>
                     <title>NewsFeed | Writer | Add Article</title>
@@ -23,8 +23,8 @@
                     <link rel="stylesheet" type="text/css" href="assets/css/theme.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
                     <!--[if lt IE 9]>
-<script src="../assets/js/html5shiv.min.js"></script>
-<script src="../assets/js/respond.min.js"></script>
+<script src="assets/js/html5shiv.min.js"></script>
+<script src="assets/js/respond.min.js"></script>
 <![endif]-->
                 </head>
 
@@ -37,7 +37,7 @@
                                     <div class="header_top">
                                         <div class="header_top_left">
                                             <ul class="top_nav">
-                                                <li><a href="../index.html">Home</a></li>
+                                                <li><a href="index.html">Home</a></li>
                                                 <li><a href="#">About</a></li>
                                                 <li><a href="contact.html">Contact</a></li>
                                             </ul>
@@ -49,9 +49,9 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="header_bottom">
-                                        <div class="logo_area"><a href="../index.html" class="logo"><img
-                                                    src="../images/logo.jpg" alt=""></a></div>
-                                        <div class="add_banner"><a href="#"><img src="../images/addbanner_728x90_V1.jpg"
+                                        <div class="logo_area"><a href="index.html" class="logo"><img
+                                                    src="images/logo.jpg" alt=""></a></div>
+                                        <div class="add_banner"><a href="#"><img src="images/addbanner_728x90_V1.jpg"
                                                     alt=""></a></div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div id="navbar" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav main_nav">
-                                        <li class="active"><a href="../index.html"><span
+                                        <li class="active"><a href="index.html"><span
                                                     class="fa fa-home desktop-home"></span><span
                                                     class="mobile-show">Home</span></a></li>
                                         <li><a href="#">Technology</a></li>
@@ -94,23 +94,23 @@
                                 <div class="col-lg-12 col-md-12">
                                     <div class="latest_newsarea"> <span>Latest News</span>
                                         <ul id="ticker01" class="news_sticker">
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My First
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My First
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Second
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Second
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Third
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Third
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Four News
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Four News
                                                     Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Five News
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Five News
                                                     Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Six News
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Six News
                                                     Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Seven
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Seven
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail3.jpg" alt="">My Eight
+                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Eight
                                                     News Item</a></li>
-                                            <li><a href="#"><img src="../images/news_thumbnail2.jpg" alt="">My Nine News
+                                            <li><a href="#"><img src="images/news_thumbnail2.jpg" alt="">My Nine News
                                                     Item</a></li>
                                         </ul>
                                         <div class="social_area">
@@ -139,31 +139,31 @@
                                                 enctype="multipart/form-data" accept-charset="UTF-8">
                                                 <input type="hidden" name="action" value="add-article" />
                                                 <input type="hidden" name="writerId" value="${writerId}" />
+												
+												<label for="name" class="form-label">Title of this article:</label>
+												<input type="text" class="form-control" id="title" name="title" placeholder="Title*" required>
+												
+												<label for="image" class="form-label">Add image(s):</label>
+												<input type="file" class="form-control" id="image" name="image" accept="image/*" multiple>
+												
+												<label for="content" class="form-label">Content:</label>
+												<textarea class="form-control content" cols="30" rows="10" name="content"></textarea>
+												
+												<label for="category" class="form-label">Category:</label>
+												<select class="form-control form-select" id="category" name="categoryId">
+												    <c:forEach var="category" items="${categories}">
+												        <option value="${category.categoryId}">${category.description}</option>
+												    </c:forEach>
+												</select>
+												
+												<label for="tag" class="form-label">Tag:</label>
+												<select class="form-control form-select" id="tag" name="tagId" multiple>
+												    <c:forEach var="tag" items="${tags}">
+												        <option value="${tag.tagId}">${tag.name}</option>
+												    </c:forEach>
+												</select>
 
-                                                <label for="name" class="form-label">Title of this article:</label>
-                                                <input type="text" class="form-control" id="title" name="title"
-                                                    placeholder="Title*">
 
-                                                <label for="image" class="form-label">Add image(s):</label>
-                                                <input type="file" class="form-control" id="image" name="image"
-                                                    accept="image/*" multiple>
-
-                                                <label for="content" class="form-label">Content:</label>
-                                                <textarea class="content" cols="30" rows="10" name="content"></textarea>
-
-                                                <label for="translator" class="form-label">Category:</label>
-                                                <select class="form-select" id="category" name="categoryId">
-                                                    <c:forEach var="category" items="${categories}">
-                                                        <option value="${category.categoryId}">
-                                                            ${category.description}</option>
-                                                    </c:forEach>
-                                                </select>
-                                                <select class="form-select" id="tag" name="tagId" multiple>
-                                                    <c:forEach var="tag" items="${tags}">
-                                                        <option value="${tag.tagId}">
-                                                            ${tag.name}</option>
-                                                    </c:forEach>
-                                                </select>
 
                                                 <button type="submit" class="btn btn-primary">Submit Article</button>
                                             </form>
@@ -210,7 +210,7 @@
                                 </div>
                             </div>
                             <div class="footer_bottom">
-                                <p class="copyright">Copyright &copy; 2045 <a href="../index.html">NewsFeed</a></p>
+                                <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
                                 <p class="developer">Developed By Wpfreeware</p>
                             </div>
                         </footer>

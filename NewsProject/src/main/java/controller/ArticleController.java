@@ -194,7 +194,7 @@ public class ArticleController extends HttpServlet {
 		System.out.println(writerId);
 		try {
 			int pageNumber = 1;
-			int pageSize = 10;
+			int pageSize = 5;
 			if (request.getParameter("page") != null) {
 				pageNumber = Integer.parseInt(request.getParameter("page"));
 			}

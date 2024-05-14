@@ -5,15 +5,14 @@
             <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
                 <!DOCTYPE html>
-                <html lang="en">
+                <html>
 
                 <head>
-                    <title>NewsFeed | Writer | Edit Article</title>
+                    <title>NewsFeed | Manage User Info</title>
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-                    <link rel="stylesheet" href="assets/css/richtext.min.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/font.css">
@@ -29,6 +28,9 @@
                 </head>
 
                 <body>
+                    <div id="preloader">
+                        <div id="status">&nbsp;</div>
+                    </div>
                     <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
                     <div class="container">
                         <header id="header">
@@ -129,54 +131,152 @@
                                 </div>
                             </div>
                         </section>
-                        <section id="contentSection">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="left_content">
-                                        <div class="contact_area">
-                                            <h2>Edit Article</h2>
-                                            <form action="manage-articles" method="post" class="contact_form"
-                                                enctype="multipart/form-data" accept-charset="UTF-8">
-                                                <input type="hidden" name="action" value="edit-article" />
-                                                <input type="hidden" name="writerId" value="${writerId}" />
-												<input type="hidden" name="articleId" value="${article.articleId}" />
-												
-                                                <label for="name" class="form-label">Title of this article:</label>
-                                                <input type="text" class="form-control" id="title" name="title"
-                                                    value="${article.title}" required>
+						<section id="contentSection">
+						    <div class="col-lg-12 col-md-12 col-sm-12">
+						        <aside class="right_content">
+						            <div class="single_sidebar">
+						                <h2><span>Your Account Information</span></h2>
+						                <button class="btn btn-green" onclick="window.location.href='manage-user-info?action=get-page-edit-user-info'">Edit account information</button>
+						                
+						                <ul class="spost_nav">
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>ID:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.userId}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+			                    			<li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Email:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.email}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Username:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.username}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Fullname:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.fullname}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Identification Id:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.identificationId}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Age:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.age}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Address:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.address}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Phone number:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.phone}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Bank account:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.bankAccount}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Date of birth:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.dob}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+					                    	<li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>Role:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.role.description}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
+						                </ul>
+						            </div>
+						        </aside>
+						    </div>
+						</section>
 
-                                                <label for="image" class="form-label">Add image(s):</label>
-                                                <input type="file" class="form-control" id="image" name="image"
-                                                    accept="image/*" multiple>
-
-                                                <label for="content" class="form-label">Content:</label>
-                                                <textarea class="content" cols="30" rows="10" name="content"></textarea>
-
-                                                <label for="category" class="form-label">Category:</label>
-                                                <select class="form-control form-select" id="category" name="categoryId">
-                                                    <c:forEach var="category" items="${categories}">
-                                                        <option value="${category.categoryId}" <c:if test="${category.categoryId == article.category.categoryId}">selected</c:if>>
-                                                            ${category.description}</option>
-                                                    </c:forEach>
-                                                </select>
-                                                <label for="tag" class="form-label">Tag:</label>
-                                                <select class="form-control form-select" id="tag" name="tagId" multiple>
-                                                    <c:forEach var="tag" items="${tags}">
-                                                        <option value="${tag.tagId}"
-                                                        	<c:forEach var="articleTag" items="${article.tags}">
-												                <c:if test="${tag.tagId == articleTag.tagId}">selected</c:if>
-												                </c:forEach>
-                                                            >${tag.name}</option>
-                                                    </c:forEach>
-                                                </select>
-
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                         <footer id="footer">
                             <div class="footer_top">
                                 <div class="row">
@@ -220,11 +320,7 @@
                             </div>
                         </footer>
                     </div>
-                    
-                    <script type="text/javascript" src="./assets/js/bootstrap.bundle.min.js"></script>
-                    <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
-                    <script type="text/javascript" src="./assets/js/jquery.richtext.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+                    <script src="assets/js/jquery.min.js"></script>
                     <script src="assets/js/wow.min.js"></script>
                     <script src="assets/js/bootstrap.min.js"></script>
                     <script src="assets/js/slick.min.js"></script>
@@ -232,66 +328,6 @@
                     <script src="assets/js/jquery.newsTicker.min.js"></script>
                     <script src="assets/js/jquery.fancybox.pack.js"></script>
                     <script src="assets/js/custom.js"></script>
-                    
-                    
-
-                    <script>
-                        $(document).ready(function () {
-                            // Initialize the rich text editor
-                            $('.content').val('${article.content}');
-                            var editor = $('.content').richText({
-                                fileUpload: false,
-                                videoEmbed: false,
-                                table: false
-                            });
-
-                            $('#image').change(function () {
-                                var uuid = window.uuid.v4();
-                                var files = this.files;
-                                var baseUrl = window.location.origin;
-                                var contextPath = window.location.pathname.split('/')[1];
-
-                                var promises = $.map(files, function (file) {
-                                    var formData = new FormData();
-                                    formData.append('image', file);
-
-                                    return $.ajax({
-                                        url: '/NewsProject/manage-articles?action=upload-image&uuid=' + uuid,
-                                        type: 'POST',
-                                        data: formData,
-                                        contentType: false,
-                                        processData: false
-                                    });
-                                });
-
-                                Promise.all(promises).then(function (results) {
-                                    $.each(results, function (i, data) {
-                                        console.log(data);
-                                        console.log(data.url);
-                                        var imageUrl = baseUrl + '/' + contextPath + data.url;
-                                        var imgTag = '<img src="' + imageUrl + '" style="object-fit:contain;width:1000px;height:1000px;" class="container d-flex align-items-center my-5">';
-
-                                        var selection = window.getSelection();
-                                        var range = selection.getRangeAt(0);
-
-                                        var tempDiv = document.createElement('div');
-                                        tempDiv.innerHTML = imgTag;
-                                        tempDiv.classList.add("container-xl", "pt-3");
-
-                                        range.deleteContents();
-                                        range.insertNode(tempDiv);
-                                        range.setStartAfter(tempDiv);
-                                        range.setEndAfter(tempDiv);
-                                        selection.removeAllRanges();
-                                        selection.addRange(range);
-                                    });
-                                });
-                            });
-                        });
-
-
-
-                    </script>
                 </body>
 
                 </html>

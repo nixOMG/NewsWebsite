@@ -59,7 +59,7 @@
 										</a>
 
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-											<li><a class="dropdown-item" href="home?action=profile">Account</a>
+											<li><a class="dropdown-item" href="manage-user-info">Account</a>
 											</li>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==4}">
