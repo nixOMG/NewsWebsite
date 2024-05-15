@@ -191,21 +191,23 @@
 										<th>Category</th>
 										<th>Actions</th>
 									</tr>
-									<c:forEach var="user" items="${users}" varStatus="loop">
+									<c:forEach var="entry" items="${userCategoriesMap}"
+										varStatus="loop">
 										<tr>
-											<td><c:out value="${user.userId}" /></td>
-											<td><c:out value="${user.username}" /></td>
-											<td><c:out value="${user.email}" /></td>
-											<td><c:out value="${user.role.description}" /></td>
-											<td><c:forEach var="category" items="${category}"
-												varStatus="loop">
-												<td><c:out value="${category.description}" /></td>
-											</c:forEach></td>	
+											<td><c:out value="${entry.key.userId}" /></td>
+											<td><c:out value="${entry.key.username}" /></td>
+											<td><c:out value="${entry.key.email}" /></td>
+											<td><c:out value="${entry.key.role.description}" /></td>
+											<td><c:forEach var="category" items="${entry.value}">
+													<c:out value="${category.description}" />
+													<br />
+												</c:forEach></td>
 											<td><a class="btn btn-success"
-												href="admin?action=get-page-assign&userId=${user.userId}">
-													Assign</a></td>
+												href="admin?action=assign&userId=${entry.key.userId}">Assign</a>
+											</td>
 										</tr>
 									</c:forEach>
+
 								</tbody>
 							</table>
 

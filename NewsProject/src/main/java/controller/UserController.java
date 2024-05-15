@@ -2,7 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -54,9 +57,9 @@ public class UserController extends HttpServlet {
 			}
 
 			else if (action != null && action.equals("get-page-assign-category")) {
-				getPageAssignCategory(request, response,"assign-category");
-				
-
+				getAllEditor(request, response);
+			} else if (action != null && action.equals("assign")) {
+				getPageAssignCategory(request, response, "assign");
 			}
 
 			else {
@@ -76,8 +79,6 @@ public class UserController extends HttpServlet {
 		// TODO Auto-generated method stub
 
 	}
-
-	
 
 	private void getPageEditDeleteUser(HttpServletRequest request, HttpServletResponse response, String url)
 			throws ServletException, IOException {
@@ -103,6 +104,7 @@ public class UserController extends HttpServlet {
 			e.getStackTrace();
 		}
 	}
+
 	private void getPageAssignCategory(HttpServletRequest request, HttpServletResponse response, String url)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -115,18 +117,19 @@ public class UserController extends HttpServlet {
 			UserDB userDB = new UserDB(entityManager);
 			User user = userDB.getUserById(userId);
 
-			CategoryDB  categoryDB = new CategoryDB(entityManager);
-			List<Category> categories = categoryDB.getAllCategories();
+			CategoryDB categoryDB = new CategoryDB(entityManager);
+			List<Category> Categories = categoryDB.getAllCategories();
+
 			request.setAttribute("user", user);
-			request.setAttribute("categories", categories);
+			request.setAttribute("Categories", Categories);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url + ".jsp");
 			dispatcher.forward(request, response);
-
 
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
 	}
+
 	private void getAllUsers(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -146,15 +149,30 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		EntityManager entityManager = DBUtil.getEntityManager();
-		entityManager.clear();
+		try {
+			EntityManager entityManager = DBUtil.getEntityManager();
+			entityManager.clear();
 
-		UserDB userDB = new UserDB(entityManager);
-		List<User> users = userDB.getUsersByRoleId(5);
+			UserDB userDB = new UserDB(entityManager);
+			List<User> users = userDB.getUsersByRoleId(5); // Assuming roleId 5 is for editors
 
-		request.setAttribute("users", users);
-		RequestDispatcher rd = request.getRequestDispatcher("/assign-category.jsp");
-		rd.forward(request, response);
+			CategoryDB categoryDB = new CategoryDB(entityManager);
+			List<Category> categories = categoryDB.getAllCategories();
+
+			Map<User, List<Category>> userCategoriesMap = new HashMap<>();
+			for (User user : users) {
+				List<Category> userCategories = categories.stream()
+						.filter(category -> category.getUser().getUserId() == user.getUserId())
+						.collect(Collectors.toList());
+				userCategoriesMap.put(user, userCategories);
+			}
+
+			request.setAttribute("userCategoriesMap", userCategoriesMap);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("assign-category.jsp");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -175,9 +193,12 @@ public class UserController extends HttpServlet {
 				editUser(request, response);
 			} else if (action != null && action.equals("delete-account")) {
 				deleteUser(request, response);
-			} else if (action != null && action.equals("assign-category")) {
-				getAllEditor(request, response);
-			} else if (action != null && action.equals("manage-comment")) {
+
+			} else if (action != null && action.equals("assign")) {
+				assignCategory(request, response);
+			}
+
+			else if (action != null && action.equals("manage-comment")) {
 				getAllComment(request, response);
 			} else {
 				getAllUsers(request, response);
@@ -186,6 +207,39 @@ public class UserController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
 			dispatcher.forward(request, response);
 		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+			dispatcher.forward(request, response);
+		}
+	}
+
+	private void assignCategory(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			// Get the userId from the submit button's value attribute
+			int userId = Integer.parseInt(request.getParameter("assign"));
+
+			// Get the categoryId from the radio button input
+			String categoryParam = "category_" + userId;
+			int categoryId = Integer.parseInt(request.getParameter(categoryParam));
+
+			EntityManager entityManager = DBUtil.getEntityManager();
+			UserDB userDB = new UserDB(entityManager);
+			CategoryDB categoryDB = new CategoryDB(entityManager);
+			User user = userDB.getUserById(userId);
+			Category category = categoryDB.getCategoryById(categoryId);
+
+			category.setUser(user);
+			if (categoryDB.updateCategory(category)) {
+				getAllEditor(request, response);
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+				dispatcher.forward(request, response);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 			RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
 			dispatcher.forward(request, response);
 		}
