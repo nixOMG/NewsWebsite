@@ -13,6 +13,24 @@ public class Comment implements Serializable {
     @Column(name = "comment_id")
     private int commentId;
 
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+    private User commentor;
+
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
+
+    @Column(name = "commentTime")
+    private Timestamp commentTime;
+
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
+
+    public Comment() {
+        super();
+    }
+    
     public int getCommentId() {
 		return commentId;
 	}
@@ -52,24 +70,5 @@ public class Comment implements Serializable {
 	public void setArticle(Article article) {
 		this.article = article;
 	}
-
-	@ManyToOne
-    @JoinColumn(name = "user_id")
-    private User commentor;
-
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
-
-    @Column(name = "commentTime")
-    private Timestamp commentTime;
-
-    @ManyToOne
-    @JoinColumn(name = "article_id")
-    private Article article;
-
-    public Comment() {
-        super();
-    }
-
    
 }

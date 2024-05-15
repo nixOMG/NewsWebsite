@@ -47,7 +47,7 @@ public class VerifyMailController extends HttpServlet {
         	user.setVerifylink(null);
         	userDb.updateUser(user);
         	// Redirect to a success page
-            response.sendRedirect(request.getContextPath() + "/success.jsp");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         } else {
             // Redirect to an error page
             response.sendRedirect(request.getContextPath() + "/error.jsp");

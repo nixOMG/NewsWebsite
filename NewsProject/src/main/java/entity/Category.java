@@ -38,13 +38,13 @@ public class Category implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
-	public String getDescription() {
-		return description;
-	}
 	@ManyToOne(optional=true)
     @JoinColumn(name="user_id")
     private User user;
 	
+	public String getDescription() {
+		return description;
+	}
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
