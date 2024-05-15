@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,13 +28,20 @@ public class Category implements Serializable {
     public int getCategoryId() {
         return categoryId;
     }
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="parent_id")
+    private Category parent;
+
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
+    private List<Category> children;
+
 	@Column(name = "description")
 	private String description;
 	
 	public String getDescription() {
 		return description;
 	}
-	@ManyToOne
+	@ManyToOne(optional=true)
     @JoinColumn(name="user_id")
     private User user;
 	
@@ -48,6 +56,18 @@ public class Category implements Serializable {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public Category getParent() {
+		return parent;
+	}
+	public void setParent(Category parent) {
+		this.parent = parent;
+	}
+	public List<Category> getChildren() {
+		return children;
+	}
+	public void setChildren(List<Category> children) {
+		this.children = children;
 	}
 
    

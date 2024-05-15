@@ -16,7 +16,7 @@ select * from tag;
 
 -- Force drop table (Replace Role with other tables's name)
 SET foreign_key_checks = 0;
-drop table user;
+drop table category;
 
 
 UPDATE user SET role_id=5 where user_id=2;

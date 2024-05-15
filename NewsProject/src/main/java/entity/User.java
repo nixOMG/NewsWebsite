@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,9 +60,11 @@ public class User {
 	@JoinColumn(name="fav_id")
 	private Favourite fav;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="category_id")
+	@OneToMany(mappedBy="user")
 	private List<Category> manageCategory;
+	
+	@OneToMany(mappedBy="commentor", cascade = CascadeType.REMOVE)
+	private List<Comment> comments;
 
 	public int getUserId() {
 		return userId;
@@ -183,6 +184,14 @@ public class User {
 
 	public void setManageCategory(List<Category> manageCategory) {
 		this.manageCategory = manageCategory;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 }

@@ -88,6 +88,24 @@ public class ArticleDB {
 		query.setMaxResults(pageSize);
 		return query.getResultList();
 	}
+	
+	public List<Article> getArticlesByStatus(String status) {
+
+		TypedQuery<Article> query = entityManager.createQuery(
+				"SELECT a FROM Article a WHERE a.status = :status",
+				Article.class);
+		query.setParameter("status", status);
+		return query.getResultList();
+	}
+	
+	public List<Article> getTop10ArticlesSortedByTime(String status) {
+        TypedQuery<Article> query = entityManager.createQuery(
+                "SELECT a FROM Article a WHERE a.status = :status ORDER BY a.publishTime DESC",
+                Article.class);
+        query.setParameter("status", status);
+        query.setMaxResults(10);
+        return query.getResultList();
+    }
 
 	public List<Article> getArticlesByCategoryAndStatus(List<Integer> categoryIds, String status) {
 		if (categoryIds == null) {

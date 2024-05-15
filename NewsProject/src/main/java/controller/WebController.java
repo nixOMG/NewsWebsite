@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import entity.Article;
 import entity.Category;
 import entity.User;
 import utils.DBUtil;
 import utils.SendMail;
 import entityManager.UserDB;
+import entityManager.ArticleDB;
 import entityManager.CategoryDB;
 import entityManager.RoleDB;
 
@@ -73,6 +75,14 @@ public class WebController extends HttpServlet {
 			for (Category category : categories) {
 				entityManager.refresh(category);
 			}
+			
+			ArticleDB articleDB=new ArticleDB(entityManager);
+			List<Article> articles=articleDB.getArticlesByStatus("approved");
+			List<Article> lastestArticles=articleDB.getTop10ArticlesSortedByTime("approved");
+			
+			
+			request.setAttribute("lastestArticles", lastestArticles);
+			request.setAttribute("articles", articles);
 			request.setAttribute("categories", categories);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");

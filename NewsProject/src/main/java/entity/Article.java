@@ -9,54 +9,61 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinTable;
 
-
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 public class Article {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_id")
-    private int articleId; 
-    
-    @Column(name = "title")
-    private String title;
-    
-    @Column(columnDefinition = "TEXT", name="article_content")
-    private String content;
-    
-    @Column(name = "publishTime")
-    private LocalDateTime publishTime;
-    
-    @Column(name = "status")
-    private String status;
-    
-    @ManyToOne
-    @JoinColumn(name = "writer_id")
-    private User writer; //has role writer
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "article_id")
+	private int articleId; 
 
-    @ManyToOne
-    @JoinColumn(name="category_id")
-    private Category category;
-    
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<Image> images;
-    
-    @ManyToMany
-    @JoinTable(
-        name = "article_tag",
-        joinColumns = @JoinColumn(name = "article_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private List<Tag> tags;
-    
-    @Column(name = "views")
+	@Column(name = "title")
+	private String title;
+
+	@Column(columnDefinition = "TEXT", name="article_content")
+	private String content;
+
+	@Column(name = "publishTime")
+	private Timestamp publishTime;
+
+	@Column(name = "status")
+	private String status;
+
+	@ManyToOne
+	@JoinColumn(name = "writer_id")
+	private User writer; //has role writer
+
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
+
+	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+	private List<Image> images;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cover_image_id", referencedColumnName = "image_id")
+	private Image coverImage;
+
+	@ManyToMany
+	@JoinTable(
+	    name = "article_tag",
+	    joinColumns = @JoinColumn(name = "article_id"),
+	    inverseJoinColumns = @JoinColumn(name = "tag_id")
+	)
+	private List<Tag> tags;
+
+	@Column(name = "views")
 	private Long views;
+
+	@OneToMany(mappedBy="article")
+	private List<Comment> comments;
 	
     public Long getViews() {
 		return views;
@@ -91,11 +98,11 @@ public class Article {
 		this.content = content;
 	}
 
-	public LocalDateTime getPublishTime() {
+	public Timestamp getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublishTime(LocalDateTime publishTime) {
+	public void setPublishTime(Timestamp publishTime) {
 		this.publishTime = publishTime;
 	}
 
@@ -137,6 +144,22 @@ public class Article {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+	}
+
+	public Image getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(Image coverImage) {
+		this.coverImage = coverImage;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
     
     

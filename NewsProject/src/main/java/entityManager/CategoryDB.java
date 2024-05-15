@@ -89,4 +89,59 @@ public class CategoryDB {
 		}
 
 	}
+	
+	public List<Category> getChildCategories() {
+	    // Create a TypedQuery to get a list of all child categories
+	    TypedQuery<Category> query = entityManager.createQuery("SELECT c FROM Category c WHERE c.parent.categoryId IS NOT NULL", Category.class);
+
+	    // Execute the query and return the result list
+	    return query.getResultList();
+	}
+	
+	public List<Category> getParentCategories() {
+	    // Create a TypedQuery to get a list of all child categories
+	    TypedQuery<Category> query = entityManager.createQuery("SELECT c FROM Category c WHERE c.parent IS NULL", Category.class);
+
+	    // Execute the query and return the result list
+	    return query.getResultList();
+	}
+	
+	public void removeRelationShip(Category category) {
+	    EntityTransaction transaction = entityManager.getTransaction();
+	    try {
+	        transaction.begin();
+
+	        // If the category has a parent, reassign its children to the parent
+	        if (category.getParent() != null) {
+	            Category parent = category.getParent();
+	            
+	            // Remove the category from its parent's children list
+	            parent.getChildren().remove(category);
+	            
+	            // Reassign each child of the category to the category's parent
+	            for (Category child : category.getChildren()) {
+	                child.setParent(parent);
+	                parent.getChildren().add(child);
+	            }
+	        } else {
+	            // If the category has no parent, just set the parent of its children to null
+	            for (Category child : category.getChildren()) {
+	                child.setParent(null);
+	            }
+	        }
+
+	        // Clear the children list of the category to maintain consistency
+	        category.getChildren().clear();
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction.isActive()) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	}
+
+
+
 }

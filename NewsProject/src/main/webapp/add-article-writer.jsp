@@ -143,6 +143,10 @@
 												<label for="name" class="form-label">Title of this article:</label>
 												<input type="text" class="form-control" id="title" name="title" placeholder="Title*" required>
 												
+												<label for="coverImage" class="form-label">Add cover image:</label>
+												<input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*" required>
+												<div id="coverImagePreview" class="my-3"></div>
+												
 												<label for="image" class="form-label">Add image(s):</label>
 												<input type="file" class="form-control" id="image" name="image" accept="image/*" multiple>
 												
@@ -238,7 +242,14 @@
                                 videoEmbed: false,
                                 table: false
                             });
-
+                            $('#coverImage').change(function () {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $('#coverImagePreview').html('<img src="' + e.target.result + '" style="object-fit:contain;width:1000px;height:1000px;" class="container d-flex align-items-center my-5">');
+                                }
+                                reader.readAsDataURL(this.files[0]);
+                            });
+					
                             $('#image').change(function () {
                                 var uuid = window.uuid.v4();
                                 var files = this.files;

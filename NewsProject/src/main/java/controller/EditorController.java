@@ -140,7 +140,7 @@ public class EditorController extends HttpServlet {
 			Article article = articleDB.getArticleById(articleId);
 
 			CategoryDB categoryDB = new CategoryDB(entityManager);
-			List<Category> categories = categoryDB.getAllCategories();
+			List<Category> categories = categoryDB.getChildCategories();
 
 			TagDB tagDB = new TagDB(entityManager);
 			List<Tag> tags = tagDB.getAllTags();

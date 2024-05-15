@@ -9,6 +9,7 @@
         <class>entity.Category</class>
         <class>entity.Image</class>
         <class>entity.Tag</class>
+        <class>entity.Comment</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
 	      <property name="javax.persistence.jdbc.url" 

@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.google.gson.JsonObject;
 
 import entity.Article;
@@ -38,7 +41,7 @@ import entityManager.TagDB;
 import entityManager.UserDB;
 import utils.DBUtil;
 
-@WebServlet({ "/ArticleController", "/writer-manage-articles" })
+@WebServlet({ "/WriterController", "/writer-manage-articles" })
 @MultipartConfig
 public class WriterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -62,8 +65,6 @@ public class WriterController extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 
-		
-
 		if (user != null && user.getRole().getRoleId() == 4) {
 			if (action != null && action.equals("get-page-add-article")) {
 				getPageAddArticle(request, response);
@@ -73,9 +74,8 @@ public class WriterController extends HttpServlet {
 				getPageDeleteArticle(request, response);
 			} else {
 				getArticlesPaginated(request, response);
-			} 
-		}
-		else {
+			}
+		} else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -92,7 +92,7 @@ public class WriterController extends HttpServlet {
 			EntityManager entityManager = DBUtil.getEntityManager();
 
 			CategoryDB categoryDB = new CategoryDB(entityManager);
-			List<Category> categories = categoryDB.getAllCategories();
+			List<Category> categories = categoryDB.getChildCategories();
 			request.setAttribute("categories", categories);
 
 			TagDB tagDB = new TagDB(entityManager);
@@ -123,9 +123,13 @@ public class WriterController extends HttpServlet {
 
 			ArticleDB articleDB = new ArticleDB(entityManager);
 			Article article = articleDB.getArticleById(articleId);
-
+			String escapedContent = StringEscapeUtils.escapeEcmaScript(article.getContent());
+			
+			
 			CategoryDB categoryDB = new CategoryDB(entityManager);
-			List<Category> categories = categoryDB.getAllCategories();
+			List<Category> categories = categoryDB.getChildCategories();
+			
+			
 
 			TagDB tagDB = new TagDB(entityManager);
 			List<Tag> tags = tagDB.getAllTags();
@@ -133,6 +137,7 @@ public class WriterController extends HttpServlet {
 
 			if (article != null && categories != null && tags != null) {
 				request.setAttribute("article", article);
+				request.setAttribute("escapedContent", escapedContent);
 				request.setAttribute("categories", categories);
 				request.setAttribute("tags", tags);
 
@@ -167,7 +172,7 @@ public class WriterController extends HttpServlet {
 			Article article = articleDB.getArticleById(articleId);
 
 			CategoryDB categoryDB = new CategoryDB(entityManager);
-			List<Category> categories = categoryDB.getAllCategories();
+			List<Category> categories = categoryDB.getChildCategories();
 
 			TagDB tagDB = new TagDB(entityManager);
 			List<Tag> tags = tagDB.getAllTags();
@@ -308,19 +313,29 @@ public class WriterController extends HttpServlet {
 	}
 
 	private String saveImageToDirectory(InputStream imageInputStream) throws IOException {
-		String uploadDirectoryPath = getServletContext().getRealPath("/assets/images/articleImg/");
-		String fileName = uploadDirectoryPath + UUID.randomUUID().toString() + ".jpg";
-		Path dirPath = Paths.get(uploadDirectoryPath);
+	    // Define the relative path for the upload directory
+	    String relativePath = "NewsProject/assets/images/articleImg/";
+	    
+	    // Get the absolute path to the directory where the image will be saved
+	    String uploadDirectoryPath = getServletContext().getRealPath(relativePath);
+	    Path dirPath = Paths.get(uploadDirectoryPath);
 
-		// Create directory if it doesn't exist
-		if (!Files.exists(dirPath)) {
-			Files.createDirectories(dirPath);
-		}
+	    // Create directory if it doesn't exist
+	    if (!Files.exists(dirPath)) {
+	        Files.createDirectories(dirPath);
+	    }
 
-		String filePath = dirPath.resolve(fileName).toString();
-		Files.copy(imageInputStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+	    // Generate a unique filename for the image
+	    String fileName = UUID.randomUUID().toString() + ".jpg";
 
-		return fileName;
+	    // Define the full file path for saving the image
+	    Path filePath = dirPath.resolve(fileName);
+
+	    // Save the image to the directory
+	    Files.copy(imageInputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+
+	    // Return the relative path to the saved image
+	    return relativePath + fileName;
 	}
 
 //	private void deleteOldImage(String oldImageFileName) {
@@ -345,6 +360,7 @@ public class WriterController extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			Part coverImagePart = request.getPart("coverImage");
 			String[] tagIds = request.getParameterValues("tagId");
 
 			Collection<Part> imageParts = request.getParts().stream().filter(part -> "image".equals(part.getName()))
@@ -381,9 +397,20 @@ public class WriterController extends HttpServlet {
 			article.setUser(writer);
 			article.setViews((long) 0);
 			article.setStatus("Pending");
+			
 			LocalDateTime currentTime = LocalDateTime.now();
-			article.setPublishTime(currentTime);
-
+			Timestamp timestamp = Timestamp.valueOf(currentTime);
+			article.setPublishTime(timestamp);
+			
+			InputStream coverImageInputStream = coverImagePart.getInputStream();
+			if (coverImageInputStream.available() > 0) {
+				String newCoverImageFileName = saveImageToDirectory(coverImageInputStream);
+				Image coverImage = new Image();
+				coverImage.setArticle(article);
+				coverImage.setImagePath(newCoverImageFileName);
+				article.setCoverImage(coverImage);
+			}
+			
 			for (Part imagePart : imageParts) {
 				InputStream imageInputStream = imagePart.getInputStream();
 
@@ -395,6 +422,7 @@ public class WriterController extends HttpServlet {
 					images.add(image);
 				}
 			}
+			
 			article.setImages(images);
 			if (articleDB.addArticle(article)) {
 				request.setAttribute("writerId", writerId);
@@ -451,12 +479,23 @@ public class WriterController extends HttpServlet {
 			if (title != null && content != null && category != null && tags != null) {
 				article.setTitle(title);
 				article.setContent(content);
+				
+
 				article.setCategory(category);
 				article.setTags(tags);
-
+				Part coverImagePart = request.getPart("coverImage");
 				Collection<Part> imageParts = request.getParts().stream().filter(part -> "image".equals(part.getName()))
 						.collect(Collectors.toList());
-
+				
+				InputStream coverImageInputStream = coverImagePart.getInputStream();
+				if (coverImageInputStream.available() > 0) {
+					String newCoverImageFileName = saveImageToDirectory(coverImageInputStream);
+					Image coverImage = new Image();
+					coverImage.setArticle(article);
+					coverImage.setImagePath(newCoverImageFileName);
+					article.setCoverImage(coverImage);
+				}
+				
 				for (Part imagePart : imageParts) {
 					InputStream imageInputStream = imagePart.getInputStream();
 
@@ -475,6 +514,7 @@ public class WriterController extends HttpServlet {
 
 				if (articleDB.updateArticle(article)) {
 					request.setAttribute("writerId", writerId);
+					
 					response.sendRedirect(request.getContextPath() + "/writer-manage-articles");
 				}
 			} else {
