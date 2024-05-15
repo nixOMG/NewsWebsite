@@ -38,7 +38,7 @@ import entityManager.TagDB;
 import entityManager.UserDB;
 import utils.DBUtil;
 
-@WebServlet({ "/ArticleController", "/writer-manage-articles" })
+@WebServlet({ "/WriterController", "/writer-manage-articles" })
 @MultipartConfig
 public class WriterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

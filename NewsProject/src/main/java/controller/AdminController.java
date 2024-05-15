@@ -25,7 +25,8 @@ import entityManager.UserDB;
 import utils.DBUtil;
 import utils.SendMail;
 
-@WebServlet({ "/AdminController", "/manage-account" })
+@WebServlet({ "/AdminController", "/admin" })
+
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -129,36 +130,45 @@ public class AdminController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 	private void assignCategory(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		try {
-			// Get the userId from the submit button's value attribute
-			int userId = Integer.parseInt(request.getParameter("assign"));
+			// Lấy UserId từ tham số truyền vào (editorId) thay vì từ nút gửi
+			int userId = Integer.parseInt(request.getParameter("userId"));
 
-			// Get the categoryId from the radio button input
-			String categoryParam = "category_" + userId;
-			int categoryId = Integer.parseInt(request.getParameter(categoryParam));
+			// Lấy categoryId từ tham số truyền vào (categoryId)
+			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
 			EntityManager entityManager = DBUtil.getEntityManager();
 			UserDB userDB = new UserDB(entityManager);
 			CategoryDB categoryDB = new CategoryDB(entityManager);
+
 			User user = userDB.getUserById(userId);
+
 			Category category = categoryDB.getCategoryById(categoryId);
 
-			category.setUser(user);
-			if (categoryDB.updateCategory(category)) {
-				getAllEditor(request, response);
-			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-				dispatcher.forward(request, response);
-			}
+			List<Category> categories = categoryDB.getAllCategories();
+			request.setAttribute("users", user);
+			request.setAttribute("categories", categories);
+
+			if (user != null && category != null) {
+				category.setUser(user);
+
+				if (categoryDB.updateCategory(category)) {
+					getAllEditor(request, response);
+					return;
+				}
+			} else
+				response.sendRedirect("error.jsp");
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-			dispatcher.forward(request, response);
+
+			response.sendRedirect("error.jsp");
 		}
 	}
 
@@ -228,12 +238,13 @@ public class AdminController extends HttpServlet {
 
 			} else if (action != null && action.equals("assign")) {
 				assignCategory(request, response);
+				
 			}
 
 			else if (action != null && action.equals("manage-comment")) {
 				getAllComment(request, response);
 			} else {
-				getAllUsers(request, response);
+				getAllEditor(request, response);
 			}
 		} else if (user == null || user.getRole().getRoleId() == 3) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
@@ -313,6 +324,7 @@ public class AdminController extends HttpServlet {
 			e.getStackTrace();
 		}
 	}
+
 	private void addUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -392,6 +404,5 @@ public class AdminController extends HttpServlet {
 			request.removeAttribute("errorMessage2");
 		}
 	}
-
 
 }

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+ 	
 
 <!DOCTYPE html>
 <html>
@@ -49,6 +49,7 @@
 }
 </style>
 
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
@@ -56,7 +57,7 @@
 
 		<header class="main-header">
 			<!-- Logo -->
-			<a href="home?action=admin" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+			<a href="admin?action=admin" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
 				<span class="logo-lg">Admin</span>
 			</a>
@@ -87,24 +88,11 @@
 									<p>
 										Admin for web <small>since 2024</small>
 									</p></li>
-								<!-- Menu Body -->
-								<li class="user-body">
-									<div class="row">
-										<div class="col-xs-4 text-center">
-											<a href="#">Followers</a>
-										</div>
-										<div class="col-xs-4 text-center">
-											<a href="#">Sales</a>
-										</div>
-										<div class="col-xs-4 text-center">
-											<a href="#">Friends</a>
-										</div>
-									</div> <!-- /.row -->
-								</li>
+								
 								<!-- Menu Footer-->
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="home?action=profile" class="btn btn-default btn-flat">Profile</a>
+										<a href="home?action=manage-user-info" class="btn btn-default btn-flat">Profile</a>
 									</div>
 									<div class="pull-right">
 										<a href="home?action=sign-out"
@@ -155,8 +143,8 @@
 							class="fa fa-th"></i> <span>Account Manager</span>
 					</a></li>
 
-					<li><a href="admin?action=get-page-manage-comment"> <i
-							class="fa fa-th"></i> <span>Comment Manager </span>
+					<li><a href="admin?action=get-page-manage-comment"> <i class="fa fa-th"></i> <span>Comment
+								Manager </span>
 
 					</a></li>
 					<li><a href="admin?action=get-page-assign-category"> <i class="fa fa-th"></i> <span>Category
@@ -169,18 +157,20 @@
 			</section>
 			<!-- /.sidebar -->
 		</aside>
-
 		<!-- =============================================== -->
+
+		
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Account Manage Page</h1>
+				<h1>
+					Quản lý tài khoản
+				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="#">Examples</a></li>
-					<li class="active">Blank page</li>
+					<li><a href="home?action=home"><i class="fa fa-dashboard"></i>
+							Home</a></li>
 				</ol>
 			</section>
 
