@@ -146,28 +146,28 @@
                                                     value="${article.title}" required>
                                                     
 												<label for="coverImage" class="form-label">Add cover image:</label>
-												<input type="file" class="form-control" style="margin-bottom: 30px;" id="coverImage" name="coverImage" accept="image/*">
+												<input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*">
 												<div id="coverImagePreview" class="my-3">
-												    <img src="${article.coverImage.imagePath}" alt="Cover Image" style="max-width: 200px; max-height: 200px; object-fit:contain margin-bottom: 30px;">
+												    <img src="${article.coverImage.imagePath}" alt="Cover Image" style="max-width: 200px; max-height: 200px; object-fit:contain;">
 												</div>
 
 												
                                                 <label for="image" class="form-label">Add image(s):</label>
-                                                <input type="file" class="form-control" style="margin-bottom: 30px;" id="image" name="image"
+                                                <input type="file" class="form-control" id="image" name="image"
                                                     accept="image/*" multiple>
 
                                                 <label for="content" class="form-label">Content:</label>
                                                 <textarea class="content" cols="30" rows="10" name="content"></textarea>
 
                                                 <label for="category" class="form-label">Category:</label>
-                                                <select class="form-control form-select" style="margin-bottom: 30px;" id="category" name="categoryId">
+                                                <select class="form-control form-select" id="category" name="categoryId">
                                                     <c:forEach var="category" items="${categories}">
                                                         <option value="${category.categoryId}" <c:if test="${category.categoryId == article.category.categoryId}">selected</c:if>>
                                                             ${category.description}</option>
                                                     </c:forEach>
                                                 </select>
                                                 <label for="tag" class="form-label">Tag:</label>
-                                                <select class="form-control form-select" style="margin-bottom: 30px;" id="tag" name="tagId" multiple>
+                                                <select class="form-control form-select" id="tag" name="tagId" multiple>
                                                     <c:forEach var="tag" items="${tags}">
                                                         <option value="${tag.tagId}"
                                                         	<c:forEach var="articleTag" items="${article.tags}">

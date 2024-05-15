@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -13,10 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import entity.Article;
 import entity.User;
-import entityManager.FavouriteDB;
+
 import entityManager.UserDB;
 import utils.DBUtil;
 
@@ -42,10 +39,7 @@ public class UserController extends HttpServlet {
 		if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 5)) {
 			if (action != null && action.equals("get-page-edit-user-info")) {
 				getPageEditUserInfo(request, response);
-			} else if (action != null && action.equals("get-user-favourite-articles")) {
-				getUserFavouriteArticles(request, response);
-			}
-			else {
+			} else {
 				getUserInfoPage(request, response);
 			}
 		} else {
@@ -54,35 +48,6 @@ public class UserController extends HttpServlet {
 		}
 	}
 		
-	private void getUserFavouriteArticles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loggedInUser");
-		try {
-			if (user != null) {
-				EntityManager entityManager = DBUtil.getEntityManager();
-
-				FavouriteDB favDB=new FavouriteDB(entityManager);
-				List<Article> favArticles=favDB.getFavoriteArticlesByUser(user);
-
-				entityManager.close();
-				request.setAttribute("favArticles", favArticles);
-				request.setAttribute("user", user);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("favourite-articles.jsp");
-				dispatcher.forward(request, response);
-			} else {
-				System.out.println("User variable is null!");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-				dispatcher.forward(request, response);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-	}
-
 	private void getPageEditUserInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

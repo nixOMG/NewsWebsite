@@ -1,8 +1,3 @@
-<%@page contentType="text/html" pageEncoding="utf-8" %>
-    <%@ page import="javax.servlet.http.HttpSession" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-            <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,52 +111,57 @@
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           <div class="single_page">
-			<ol class="breadcrumb">
-			    <li><a href="home">Home</a></li>
-			    <c:choose>
-			        <c:when test="${not empty article.category.parent}">
-			            <li><a href="category?categoryId=${article.category.parent.categoryId}">${article.category.parent.description}</a></li>
-			        </c:when>
-			    </c:choose>
-			    <li class="active">${article.category.description}</li>
-			</ol>
-
-            <h1>${article.title}</h1>
-            <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>${article.user.getUsername()}</a> <span><i class="fa fa-calendar"></i>${article.publishTime}</span> <a href="#"><i class="fa fa-tags"></i>${article.category.description}</a> </div>
-            <div class="single_page_content">
-            <div style="max-width:600px">${article.content}</div>
+            <ol class="breadcrumb">
+              <li><a href="home">Home</a></li>
+              <li><a href="#">Technology</a></li>
+              <li class="active">Mobile</li>
+            </ol>
+            <h1>Morbi dapibus, enim quis luctus interdum</h1>
+            <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i class="fa fa-calendar"></i>6:49 AM</span> <a href="#"><i class="fa fa-tags"></i>Technology</a> </div>
+            <div class="single_page_content"> <img class="img-center" src="images/single_post_img.jpg" alt="">
+              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui lectus, pharetra nec elementum eget, vulputate ut nisi. Aliquam accumsan, nulla sed feugiat vehicula, lacus justo semper libero, quis porttitor turpis odio sit amet ligula. Duis dapibus fermentum orci, nec malesuada libero vehicula ut. Integer sodales, urna eget interdum eleifend, nulla nibh laoreet nisl, quis dignissim mauris dolor eget mi. Donec at mauris enim. Duis nisi tellus, adipiscing a convallis quis, tristique vitae risus. Nullam molestie gravida lobortis. Proin ut nibh quis felis auctor ornare. Cras ultricies, nibh at mollis faucibus, justo eros porttitor mi, quis auctor lectus arcu sit amet nunc. Vivamus gravida vehicula arcu, vitae vulputate augue lacinia faucibus.</p>
+              <blockquote> Donec volutpat nibh sit amet libero ornare non laoreet arcu luctus. Donec id arcu quis mauris euismod placerat sit amet ut metus. Sed imperdiet fringilla sem eget euismod. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque adipiscing, neque ut pulvinar tincidunt, est sem euismod odio, eu ullamcorper turpis nisl sit amet velit. Nullam vitae nibh odio, non scelerisque nibh. Vestibulum ut est augue, in varius purus. </blockquote>
+              <ul>
+                <li>Nullam vitae nibh odio, non scelerisque nibh</li>
+	                <li>Nullam vitae nibh odio, non scelerisque nibh</li>
+	                <li>Nullam vitae nibh odio, non scelerisque nibh</li>
+                <li>Nullam vitae nibh odio, non scelerisque nibh</li>
+                <li>Nullam vitae nibh odio, non scelerisque nibh</li>
+                <li>Nullam vitae nibh odio, non scelerisque nibh</li>
+              </ul>
+              <h2>This is h2 title</h2>
+              <h3>This is h3 title</h3>
+              <h4>This is h4 title</h4>
+              <h5>This is h5 title</h5>
+              <h6>This is h6 Title</h6>
+              <button class="btn default-btn">Default</button>
+              <button class="btn btn-red">Red Button</button>
+              <button class="btn btn-yellow">Yellow Button</button>
+              <button class="btn btn-green">Green Button</button>
+              <button class="btn btn-black">Black Button</button>
+              <button class="btn btn-orange">Orange Button</button>
+              <button class="btn btn-blue">Blue Button</button>
+              <button class="btn btn-lime">Lime Button</button>
+              <button class="btn btn-theme">Theme Button</button>
             </div>
-			<div class="social_link">
-			    <ul class="sociallink_nav">
-			        <li>
-			            <c:choose>
-			                <c:when test="${isFavourite}">
-			                    <a href="article?action=remove-favourite&articleId=${article.articleId}" class="favourite-link" data-favourite="true">
-			                        <i class="fa fa-heart"></i>
-			                    </a> Unlike
-			                </c:when>
-			                <c:otherwise>
-			                    <a href="article?action=add-to-favourite&articleId=${article.articleId}" class="favourite-link" data-favourite="false">
-			                        <i class="fa fa-heart-o"></i>
-			                    </a> Like
-			                </c:otherwise>
-			            </c:choose>
-			        </li>
-			    </ul>
-			</div>
-
-
+            <div class="social_link">
+              <ul class="sociallink_nav">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+              </ul>
+            </div>
             <div class="related_post">
               <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>
               <ul class="spost_nav wow fadeInDown animated">
-              <c:forEach var="relatedArticle" items="${relatedArticles}">
-              	<li>
-                  <div class="media"> <a class="media-left" href="article?action=view-article&articleId=${relatedArticle.articleId}"> <img src="${relatedArticle.coverImage.imagePath}" alt=""> </a>
-                    <div class="media-body"> <a class="catg_title" href="article?action=view-article&articleId=${relatedArticle.articleId}">${relatedArticle.title}</a> </div>
+                <li>
+                  <div class="media"> <a class="media-left" href="single_page.html"> <img src="images/post_img1.jpg" alt=""> </a>
+                    <div class="media-body"> <a class="catg_title" href="single_page.html"> Aliquam malesuada diam eget turpis varius</a> </div>
                   </div>
                 </li>
-              </c:forEach>
-                 <li>
+                <li>
                   <div class="media"> <a class="media-left" href="single_page.html"> <img src="images/post_img2.jpg" alt=""> </a>
                     <div class="media-body"> <a class="catg_title" href="single_page.html"> Aliquam malesuada diam eget turpis varius</a> </div>
                   </div>
@@ -190,15 +190,11 @@
           <div class="single_sidebar">
             <h2><span>Popular Post</span></h2>
             <ul class="spost_nav">
-            <c:forEach var="sortedArticleByView" items="${sortedArticlesByView}">
-            	<li>
-                <div class="media wow fadeInDown"> <a href="article?action=view-article&articleId=${sortedArticleByView.articleId}" class="media-left"> <img alt="" src="${sortedArticleByView.coverImage.imagePath}"> </a>
-                  <div class="media-body"> <a href="article?action=view-article&articleId=${sortedArticleByView.articleId}" class="catg_title">${sortedArticleByView.title}</a> </div>
+              <li>
+                <div class="media wow fadeInDown"> <a href="single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
+                  <div class="media-body"> <a href="single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
                 </div>
               </li>
-            </c:forEach>
-            
-              
               <li>
                 <div class="media wow fadeInDown"> <a href="single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
                   <div class="media-body"> <a href="single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
@@ -339,38 +335,5 @@
 <script src="assets/js/jquery.newsTicker.min.js"></script> 
 <script src="assets/js/jquery.fancybox.pack.js"></script> 
 <script src="assets/js/custom.js"></script>
-<script>
-$(document).ready(function() {
-    $('.favourite-link').click(function(event) {
-        event.preventDefault();
-        var link = $(this);
-        var href = link.attr('href');
-        var isFavourite = link.data('favourite') === true;
-
-        $.ajax({
-            url: href,
-            type: 'GET',
-            success: function() {
-                if (isFavourite) {
-                    link.find('i').removeClass('fa-heart').addClass('fa-heart-o');
-                    link.attr('href', href.replace('remove-favourite', 'add-to-favourite'));
-                    link.data('favourite', false);
-                    link.parent().html('<a href="' + link.attr('href') + '" class="favourite-link" data-favourite="false"><i class="fa fa-heart-o"></i></a> Like');
-                } else {
-                    link.find('i').removeClass('fa-heart-o').addClass('fa-heart');
-                    link.attr('href', href.replace('add-to-favourite', 'remove-favourite'));
-                    link.data('favourite', true);
-                    link.parent().html('<a href="' + link.attr('href') + '" class="favourite-link" data-favourite="true"><i class="fa fa-heart"></i></a> Unlike');
-                }
-            },
-            error: function() {
-                alert('Error while updating favourite status.');
-            }
-        });
-    });
-});
-
-
-</script>
 </body>
 </html>

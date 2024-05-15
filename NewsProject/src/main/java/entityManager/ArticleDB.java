@@ -1,9 +1,7 @@
 package entityManager;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -108,36 +106,6 @@ public class ArticleDB {
         query.setMaxResults(10);
         return query.getResultList();
     }
-	
-	public List<Article> getArticlesByRelatedCategory(Category category, int currentArticleId) {
-	    List<Article> relatedArticles = new ArrayList<>();
-
-	    // Check if the category has a parent category
-	    if (category.getParent() != null) {
-	        Category parentCategory = category.getParent();
-
-	        // Find articles in categories with the same parent category, excluding the current article
-	        TypedQuery<Article> query = entityManager.createQuery(
-	            "SELECT a FROM Article a WHERE a.category.parent = :parentCategory AND a.articleId != :currentArticleId",
-	            Article.class);
-	        query.setParameter("parentCategory", parentCategory);
-	        query.setParameter("currentArticleId", currentArticleId);
-	        
-	        relatedArticles = query.getResultList();
-	    }
-
-	    return relatedArticles;
-	}
-	public List<Article> getArticlesSortedByViews() {
-	    TypedQuery<Article> query = entityManager.createQuery(
-	        "SELECT a FROM Article a ORDER BY a.views DESC",
-	        Article.class);
-	    return query.getResultList();
-	}
-
-
-
-
 
 	public List<Article> getArticlesByCategoryAndStatus(List<Integer> categoryIds, String status) {
 		if (categoryIds == null) {
@@ -193,15 +161,5 @@ public class ArticleDB {
 		query.setParameter("writerId", writerId);
 		return query.getSingleResult();
 	}
-
-	public List<Article> searchArticle(String searchTerm) {
-	    TypedQuery<Article> query = entityManager.createQuery(
-	        "SELECT a FROM Article a WHERE LOWER(a.title) LIKE :searchTerm OR LOWER(a.content) LIKE :searchTerm",
-	        Article.class);
-	    query.setParameter("searchTerm", "%" + searchTerm.toLowerCase() + "%");
-	    
-	    return query.getResultList();
-	}
-
 
 }
