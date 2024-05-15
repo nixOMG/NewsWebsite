@@ -158,14 +158,23 @@
 									<table class="table">
 										<thead>
 											<tr class="table-header">
-												<td style="width: 10%;">
+												<td style="width: 5%;">
 													<h4>ID</h4>
 												</td>
 												<td style="width: 15%;">
+													<h4>Cover</h4>
+												</td>
+												<td style="width: 20%;">
 													<h4>Title</h4>
 												</td>
 												<td style="width: 10%;">
+													<h4>Publish Date</h4>
+												</td>
+												<td style="width: 10%;">
 													<h4>Status</h4>
+												</td>
+												<td style="width: 10%;">
+													<h4>Views</h4>
 												</td>
 												<td style="width: 10%;">
 													<h4>Category</h4>
@@ -173,7 +182,7 @@
 												<td style="width: 10%;">
 													<h4>Tags</h4>
 												</td>
-												<td style="width: 15%;">
+												<td style="width: 10%;">
 													<h4>Actions</h4>
 												</td>
 											</tr>
@@ -187,13 +196,26 @@
 														</h5>
 													</td>
 													<td>
+									                    <c:url var="coverImageUrl" value="${article.coverImage.imagePath}" />
+									                    <img src="${coverImageUrl}" alt="Cover Image" style="max-width: 70%; height: auto;" />										</td>
+													<td>
 														<h5>
 															<c:out value="${article.title}" />
 														</h5>
 													</td>
 													<td>
 														<h5>
+															<c:out value="${article.publishTime}" />
+														</h5>
+													</td>
+													<td>
+														<h5>
 															<c:out value="${article.status}" />
+														</h5>
+													</td>
+													<td>
+														<h5>
+															<c:out value="${article.views}" />
 														</h5>
 													</td>
 													<td>
@@ -207,9 +229,9 @@
 															</h5>
 														</c:forEach></td>
 													<td>
-														<button class="btn btn-yellow"
+														<button class="btn btn-yellow" style="width: 68px;"
 															onclick="window.location.href='writer-manage-articles?action=get-page-edit-article&articleId=${article.articleId}'">Edit</button>
-														<button class="btn btn-red"
+														<button class="btn btn-red" style="width: 68px;"
 															onclick="window.location.href='writer-manage-articles?action=get-page-delete-article&articleId=${article.articleId}'">Delete</button>
 													</td>
 												</tr>

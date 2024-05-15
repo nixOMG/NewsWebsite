@@ -38,13 +38,14 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="header_top">
-						<div class="header_top_left">
-							<div class="logo_area">
-								<a href="home" class="logo"><img src="images/logo.jpg"
-									alt=""></a>
-							</div>
-						</div>
+						
+						
 						<div class="header_top_right">
+						<form action="article" method="get" class="form-inline my-2 my-lg-0 px-4 align-self-center d-flex">
+							<input type="hidden" name="action" value="search-article"/>
+						      <input class="form-control mr-sm-2" name="searchTerm" type="search" placeholder="Search" aria-label="Search">
+						      <button class="btn btn-outline-light my-2 my-sm-0 mx-3" type="submit">Search</button>
+						    </form>
 							<p>Friday, December 05, 2045</p>
 							<c:choose>
 								<c:when test="${loggedInUser ne null}">
@@ -60,6 +61,8 @@
 
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 											<li><a class="dropdown-item" href="manage-user-info">Account</a>
+											</li>
+											<li><a class="dropdown-item" href="manage-user-info?action=get-user-favourite-articles">Favourite</a>
 											</li>
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==4}">
