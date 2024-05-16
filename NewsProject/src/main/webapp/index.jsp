@@ -61,8 +61,10 @@
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 											<li><a class="dropdown-item" href="manage-user-info">Account</a>
 											</li>
-											<li><a class="dropdown-item" href="manage-user-role"></a>
-											</li>
+											<li style="display: none;">
+												    <a class="dropdown-item" href="manage-user-role"></a>
+												</li>
+
 											<c:if
 												test="${loggedInUser.getRole().getRoleId()==4}">
 												<li><a class="dropdown-item" href="writer-manage-articles">Writer's Page</a></li>
