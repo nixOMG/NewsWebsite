@@ -1,19 +1,18 @@
-<%@page contentType="text/html" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@ page import="javax.servlet.http.HttpSession" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
             <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
                 <!DOCTYPE html>
-                <html lang="en">
+                <html>
 
                 <head>
-                    <title>NewsFeed | User | Edit Profile</title>
+                    <title>NewsFeed | Manage User Info</title>
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-                    <link rel="stylesheet" href="assets/css/richtext.min.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
                     <link rel="stylesheet" type="text/css" href="assets/css/font.css">
@@ -29,6 +28,9 @@
                 </head>
 
                 <body>
+                    <div id="preloader">
+                        <div id="status">&nbsp;</div>
+                    </div>
                     <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
                     <div class="container">
                         <header id="header">
@@ -129,46 +131,32 @@
                                 </div>
                             </div>
                         </section>
-                        <section id="contentSection">
+                         <section id="roleSection">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="left_content">
                                         <div class="contact_area">
                                             <h2>Edit Profile</h2>
-                                            <form action="manage-user-info" method="post" class="contact_form" 
+                                            <form action="manage-user-role" method="post" class="contact_form" 
                                                 enctype="multipart/form-data" accept-charset="UTF-8">
-                                                <input type="hidden" name="action" value="edit-user-info" />
+                                                <input type="hidden" name="action" value="edit-user-role" />
                                                 <input type="hidden" name="userId" value="${userId}" />
 
-												<label for="email" class="form-label">Your email:</label>
-												<input type="email" class="form-control" id="email" name="email" value="${user.email}" disabled>
-												
-												<label for="username" class="form-label">Username:</label>
-												<input type="text" class="form-control" id="username" name="username" value="${user.username}" required>
-																							
-												<label for="fullname" class="form-label">Full name:</label>
-												<input type="text" class="form-control" id="fullname" name="fullname" value="${user.fullname}" required>
-												
-												<label for="idenId" class="form-label">Your identification Id:</label>
-												<input type="text" class="form-control" id="idenId" name="idenId" value="${user.identificationId}" required>
-												
-												<label for="age" class="form-label">Your age:</label>
-												<input type="number" class="form-control" id="age" name="age" value="${user.age}" required>
-												
-												<label for="address" class="form-label">Your address:</label>
-												<input type="text" class="form-control" id="address" name="address" value="${user.address}" required>
-												
-												<label for="phone" class="form-label">Your phone number:</label>
-												<input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" required>
 
-												<label for="bankaccount" class="form-label">Your bank account:</label>
-												<input type="text" class="form-control" id="bankaccount" name="bankaccount" value="${user.bankAccount}">
-																								
-												<label for="dob" class="form-label">Your date of birth: </label>
-												<input type="date" class="form-control" id="dob" name="dob" value="${user.dob}" required>
+												<label for="roleId" class="form-label">After purchase please confirm to become a Subscriber</label>
+													<input type="hidden" name="roleId" id="roleId" value="${user.role.roleId}">
+													<script>
+													    // Check if the current role is 2, then automatically change it to 3
+													    window.onload = function() {
+													        var roleIdInput = document.getElementById('roleId');
+													        if (roleIdInput.value === '2') {
+													            roleIdInput.value = '3';
+													        }
+													    };
+													</script>
+
+
 												
-												<label for="password" class="form-label">Password:</label>
-												<a href="resetPass.jsp" class="form-control form__link" style="margin-bottom: 30px">Change password</a>
                                                 
                                                 <button type="submit" class="btn btn-primary">Save change</button>
                                             </form>
@@ -177,6 +165,8 @@
                                 </div>
                             </div>
                         </section>
+
+
                         <footer id="footer">
                             <div class="footer_top">
                                 <div class="row">
@@ -220,11 +210,7 @@
                             </div>
                         </footer>
                     </div>
-                    
-                    <script type="text/javascript" src="./assets/js/bootstrap.bundle.min.js"></script>
-                    <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
-                    <script type="text/javascript" src="./assets/js/jquery.richtext.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+                    <script src="assets/js/jquery.min.js"></script>
                     <script src="assets/js/wow.min.js"></script>
                     <script src="assets/js/bootstrap.min.js"></script>
                     <script src="assets/js/slick.min.js"></script>
@@ -232,7 +218,6 @@
                     <script src="assets/js/jquery.newsTicker.min.js"></script>
                     <script src="assets/js/jquery.fancybox.pack.js"></script>
                     <script src="assets/js/custom.js"></script>
-
                 </body>
 
                 </html>
