@@ -89,6 +89,9 @@
 											</li>
 											<li><a class="dropdown-item" href="home?action=sign-out">Sign
 													out</a></li>
+											<li style="display: none;">
+												    <a class="dropdown-item" href="manage-user-role"></a>
+												</li>
 										</ul>
 									</div>
 								</c:when>
