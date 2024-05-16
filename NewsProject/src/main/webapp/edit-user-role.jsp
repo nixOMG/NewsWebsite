@@ -142,12 +142,10 @@
                                                 <input type="hidden" name="action" value="edit-user-role" />
                                                 <input type="hidden" name="userId" value="${userId}" />
 
-												<label for="role" class="form-label">Your role:</label>
-												<select class="form-select" id="role" name="role">
-												    <option value="Admin" ${user.role == 'Subscriber' ? 'selected' : ''}>Subscriber</option>
-												    <option value="User" ${user.role == 'User' ? 'selected' : ''}>User</option>
 
-												</select>
+												<label for="roleId" class="form-label">After purchase completed please change your role from 2 to 3 to become a Subscriber</label>
+												<input type="text" class="form-control" id="roleId" name="roleId" value="${user.role.roleId}" required>
+
 												
                                                 
                                                 <button type="submit" class="btn btn-primary">Save change</button>
