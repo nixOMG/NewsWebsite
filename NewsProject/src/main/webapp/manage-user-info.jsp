@@ -137,7 +137,7 @@
 						            <div class="single_sidebar">
 						                <h2><span>Your Account Information</span></h2>
 						                <button class="btn btn-green" onclick="window.location.href='manage-user-info?action=get-page-edit-user-info'">Edit account information</button>
-						                
+						                <button class="btn btn-green" onclick="window.location.href='subscription.jsp'">Buy Subscription</button>
 						                <ul class="spost_nav">
 						                    <li>
 						                        <div class="media wow fadeInDown">

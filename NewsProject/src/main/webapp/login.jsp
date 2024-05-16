@@ -17,7 +17,7 @@
                 <div class="container a-container" id="a-container">
                     <form class="form" id="a-form" method="post" action="home">
                         <input type="hidden" name="action" value="handle-login">
-                        <a href="home" class="homelink">←Back</a>
+                        <a href="index.jsp" class="homelink">←Back</a>
                         <h2 class="form_title title">Sign in to Website</h2>
                         <span class="form__span">Glad to see you again!</span>
                         <input class="form__input" type="email" name="email" id="emailLog" placeholder="Your email" required>
@@ -93,7 +93,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             
             <script>
-				
+            /*
 				$(document).ready(function() {
 					document.querySelector('.switch-btn').addEventListener('click', function() {
 					    var currentForm = document.querySelector('.container:not(.is-hidden)').id;
@@ -124,6 +124,7 @@
 				        }
 				    });
 				});
+            */
 			</script>
 	        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

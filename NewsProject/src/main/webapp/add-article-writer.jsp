@@ -144,24 +144,24 @@
 												<input type="text" class="form-control" id="title" name="title" placeholder="Title*" required>
 												
 												<label for="coverImage" class="form-label">Add cover image:</label>
-												<input type="file" class="form-control" style="margin-bottom: 30px" id="coverImage" name="coverImage" accept="image/*" required>
+												<input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*" required>
 												<div id="coverImagePreview" class="my-3"></div>
 												
 												<label for="image" class="form-label">Add image(s):</label>
-												<input type="file" class="form-control" style="margin-bottom: 30px" id="image" name="image" accept="image/*" multiple>
+												<input type="file" class="form-control" id="image" name="image" accept="image/*" multiple>
 												
 												<label for="content" class="form-label">Content:</label>
 												<textarea class="form-control content" cols="30" rows="10" name="content"></textarea>
 												
 												<label for="category" class="form-label">Category:</label>
-												<select class="form-control form-select" style="margin-bottom: 30px" id="category" name="categoryId">
+												<select class="form-control form-select" id="category" name="categoryId">
 												    <c:forEach var="category" items="${categories}">
 												        <option value="${category.categoryId}">${category.description}</option>
 												    </c:forEach>
 												</select>
 												
 												<label for="tag" class="form-label">Tag:</label>
-												<select class="form-control form-select" style="margin-bottom: 30px" id="tag" name="tagId" multiple>
+												<select class="form-control form-select" id="tag" name="tagId" multiple>
 												    <c:forEach var="tag" items="${tags}">
 												        <option value="${tag.tagId}">${tag.name}</option>
 												    </c:forEach>
@@ -274,7 +274,7 @@
                                         console.log(data);
                                         console.log(data.url);
                                         var imageUrl = baseUrl + '/' + contextPath + data.url;
-                                        var imgTag = '<img src="' + imageUrl + '" style="object-fit:contain;width:600px;height:600px;">';
+                                        var imgTag = '<img src="' + imageUrl + '" style="object-fit:contain;width:1000px;height:1000px;" class="container d-flex align-items-center my-5">';
 
                                         var selection = window.getSelection();
                                         var range;
