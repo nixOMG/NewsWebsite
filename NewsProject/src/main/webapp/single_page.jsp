@@ -149,7 +149,48 @@
 			        </li>
 			    </ul>
 			</div>
-
+			<div id="comment-form">
+		    <h4>Add a Comment</h4>
+		    <form action="comment?action=add-comment" method="post">
+		        <input type="hidden" name="articleId" value="${article.articleId}" />
+		        <div>
+		            <textarea name="content" rows="5" cols="60" placeholder="Write your comment here..."></textarea>
+		        </div>
+		        <div>
+		            <button type="submit">Submit</button>
+		        </div>
+		    </form>
+		</div>
+		<h3>Comments</h3>
+		<c:forEach var="comment" items="${comments}">
+		    <div>
+		        <p><strong>${comment.commentor.username}</strong>: ${comment.content}</p>
+		        <p><em>${comment.commentTime}</em></p>
+		        
+			        <c:if test="${comment.commentor.userId == loggedInUser.userId and loggedInUser.role.roleId!=6}">
+			        <div style="display:flex; flex-direction: row;">
+			            <form action="comment?action=edit-comment" method="post">
+			                <input type="hidden" name="commentId" value="${comment.commentId}" />
+			                <textarea id="textarea-${comment.commentId}" name="content" rows="3" placeholder="Write your comment here..." style="display:none">${comment.content}</textarea>
+			                <button type="button" id="editBtn" onclick="editComment(${comment.commentId})">Edit</button>
+			                <button type="submit" id="submitBtn" style="display:none">Submit</button>
+			            </form>
+			            <form action="comment?action=delete-comment" method="post" onsubmit="return deleteComment(${comment.commentId})">
+			                <input type="hidden" name="commentId" value="${comment.commentId}" />
+			                <button type="submit" id="submitBtn">Delete</button>
+			            </form>
+			            </div>
+			        </c:if>
+			        <c:if test="${loggedInUser.role.roleId==6}">
+			        	<form action="comment?action=delete-comment" method="post" onsubmit="return deleteComment(${comment.commentId})">
+			                <input type="hidden" name="commentId" value="${comment.commentId}" />
+			                <button type="submit" id="submitBtn">Delete</button>
+			            </form>
+			        </c:if>
+		        
+		        
+		    </div>
+		</c:forEach>
 
             <div class="related_post">
               <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>
@@ -371,6 +412,26 @@ $(document).ready(function() {
 });
 
 
+</script>
+<script>
+function editComment(commentId) {
+    var textarea = document.getElementById('textarea-' + commentId);
+    textarea.style.display = 'block';
+    
+    var submitBtn=document.getElementById('submitBtn');
+    submitBtn.style.display='block';
+    
+    var editBtn=document.getElementById('editBtn');
+    editBtn.style.display='none'
+}
+function deleteComment(commentId){
+	var r = confirm("Bạn có chắc là muốn xóa bình luận này không?");
+    if (r == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
 </script>
 </body>
 </html>

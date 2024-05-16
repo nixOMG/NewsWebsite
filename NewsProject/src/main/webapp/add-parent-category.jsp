@@ -136,7 +136,7 @@
                                         <div class="contact_area">
                                             <h2>Add Category</h2>
                                             <form action="manage-category" method="post" class="contact_form"
-                                                enctype="multipart/form-data" accept-charset="UTF-8">
+                                                accept-charset="UTF-8">
                                                 <input type="hidden" name="action" value="add-category" />
 												
 												<label for="description" class="form-label">Category's name:</label>

@@ -38,14 +38,17 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="header_top">
-						
-						
+
+
 						<div class="header_top_right">
-						<form action="article" method="get" class="form-inline my-2 my-lg-0 px-4 align-self-center d-flex">
-							<input type="hidden" name="action" value="search-article"/>
-						      <input class="form-control mr-sm-2" name="searchTerm" type="search" placeholder="Search" aria-label="Search">
-						      <button class="btn btn-outline-light my-2 my-sm-0 mx-3" type="submit">Search</button>
-						    </form>
+							<form action="article" method="get"
+								class="form-inline my-2 my-lg-0 px-4 align-self-center d-flex">
+								<input type="hidden" name="action" value="search-article" /> <input
+									class="form-control mr-sm-2" name="searchTerm" type="search"
+									placeholder="Search" aria-label="Search">
+								<button class="btn btn-outline-light my-2 my-sm-0 mx-3"
+									type="submit">Search</button>
+							</form>
 							<p>Friday, December 05, 2045</p>
 							<c:choose>
 								<c:when test="${loggedInUser ne null}">
@@ -62,21 +65,24 @@
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 											<li><a class="dropdown-item" href="manage-user-info">Account</a>
 											</li>
-											<li><a class="dropdown-item" href="manage-user-info?action=get-user-favourite-articles">Favourite</a>
+											<li><a class="dropdown-item"
+												href="manage-user-info?action=get-user-favourite-articles">Favourite</a>
 											</li>
-											<c:if
-												test="${loggedInUser.getRole().getRoleId()==4}">
-												<li><a class="dropdown-item" href="writer-manage-articles">Writer's Page</a></li>
+											<c:if test="${loggedInUser.getRole().getRoleId()==4}">
+												<li><a class="dropdown-item"
+													href="writer-manage-articles">Writer's Page</a></li>
 											</c:if>
-											<c:if
-												test="${loggedInUser.getRole().getRoleId()==5}">
-												<li><a class="dropdown-item" href="editor-manage-articles">Editor's Page</a></li>
-												<li><a class="dropdown-item" href="manage-category">Manage Category</a></li>
+											<c:if test="${loggedInUser.getRole().getRoleId()==5}">
+												<li><a class="dropdown-item"
+													href="editor-manage-articles">Editor's Page</a></li>
+												<li><a class="dropdown-item" href="manage-category">Manage
+														Category</a></li>
 											</c:if>
-											<c:if
-												test="${loggedInUser.getRole().getRoleId()==6}">
-												<li><a class="dropdown-item" href="manage-users">Admin's Page</a></li>
-												<li><a class="dropdown-item" href="manage-category">Manage Category</a></li>
+											<c:if test="${loggedInUser.getRole().getRoleId()==6}">
+												<li><a class="dropdown-item" href="manage-users">Admin's
+														Page</a></li>
+												<li><a class="dropdown-item" href="manage-category">Manage
+														Category</a></li>
 											</c:if>
 											<li>
 												<hr class="dropdown-divider">
@@ -90,7 +96,8 @@
 									<a href="home?action=sign-in"
 										class="nav-icon position-relative text-decoration-none"> <i
 										class="fa fa-fw fa-user text-light mr-3"></i> <span
-										class="position-absolute top-0 left-100 translate-middle">Login/Sign up</span>
+										class="position-absolute top-0 left-100 translate-middle">Login/Sign
+											up</span>
 									</a>
 								</c:otherwise>
 							</c:choose>
@@ -101,8 +108,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="header_bottom">
 						<div class="logo_area">
-							<a href="home" class="logo"><img src="images/logo.jpg"
-								alt=""></a>
+							<a href="home" class="logo"><img src="images/logo.jpg" alt=""></a>
 						</div>
 						<div class="add_banner">
 							<a href="#"><img src="images/addbanner_728x90_V1.jpg" alt=""></a>
@@ -124,23 +130,30 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav main_nav">
-						<li class="active"><a href="home"><span
-								class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-						<li><a href="#">Technology</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">Mobile</a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Android</a></li>
-								<li><a href="#">Samsung</a></li>
-								<li><a href="#">Nokia</a></li>
-								<li><a href="#">Walton Mobile</a></li>
-								<li><a href="#">Sympony</a></li>
-							</ul></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Tablets</a></li>
-						<li><a href="pages/contact.html">Contact Us</a></li>
-						<li><a href="pages/404.html">404 Page</a></li>
+					    <li class="active"><a href="home"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+					    <c:forEach var="category" items="${categories}">
+					        <c:choose>
+					            <c:when test="${not empty category.children}">
+					                <li class="dropdown">
+					                    <a href="article?action=get-article-by-category&categoryId=${category.categoryId}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					                        ${category.description}
+					                    </a>
+					                    <ul class="dropdown-menu" role="menu">
+					                        <c:forEach var="child" items="${category.children}">
+					                            <li><a href="article?action=get-article-by-category&categoryId=${child.categoryId}">${child.description}</a></li>
+					                        </c:forEach>
+					                    </ul>
+					                </li>
+					            </c:when>
+					            <c:otherwise>
+					                <li><a href="article?action=get-article-by-category&categoryId=${category.categoryId}">${category.description}</a></li>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    <li><a href="pages/contact.html">Contact Us</a></li>
+					    <li><a href="pages/404.html">404 Page</a></li>
 					</ul>
+
 				</div>
 			</nav>
 		</section>
@@ -150,24 +163,16 @@
 					<div class="latest_newsarea">
 						<span>Latest News</span>
 						<ul id="ticker01" class="news_sticker">
+							<c:forEach var="lastestArticle" items="${lastestArticles}">
+								<li><a
+									href="article?action=view-article&articleId=${lastestArticle.articleId}">
+										<img alt="" src="${lastestArticle.coverImage.imagePath}">${lastestArticle.title}
+								</a></li>
+							</c:forEach>
 							<li><a href="#"><img src="images/news_thumbnail3.jpg"
 									alt="">My First News Item</a></li>
 							<li><a href="#"><img src="images/news_thumbnail3.jpg"
 									alt="">My Second News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail3.jpg"
-									alt="">My Third News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail3.jpg"
-									alt="">My Four News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail3.jpg"
-									alt="">My Five News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail3.jpg"
-									alt="">My Six News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail3.jpg"
-									alt="">My Seven News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail3.jpg"
-									alt="">My Eight News Item</a></li>
-							<li><a href="#"><img src="images/news_thumbnail2.jpg"
-									alt="">My Nine News Item</a></li>
 						</ul>
 						<div class="social_area">
 							<ul class="social_nav">
@@ -189,18 +194,21 @@
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-8">
 					<div class="slick_slider">
-					<c:forEach var="article" items="${articles}">
-						<div class="single_iteam">
-								<a href="article?action=view-article&articleId=${article.articleId}"> <img
-									src="${article.coverImage.imagePath}" alt=""></a>
+						<c:forEach var="article" items="${articles}">
+							<div class="single_iteam">
+								<a
+									href="article?action=view-article&articleId=${article.articleId}">
+									<img src="${article.coverImage.imagePath}" alt="">
+								</a>
 								<div class="slider_article">
 									<h2>
-										<a class="slider_tittle" href="article?action=view-article&articleId=${article.articleId}">${article.title}</a>
+										<a class="slider_tittle"
+											href="article?action=view-article&articleId=${article.articleId}">${article.title}</a>
 									</h2>
 									<p>${article.content}...</p>
+								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-4">
@@ -213,19 +221,22 @@
 								<i class="fa fa-chevron-up"></i>
 							</div>
 							<ul class="latest_postnav">
-							<c:forEach var="lastestArticle" items="${lastestArticles}">
-								<li>
-									<div class="media">
-										<a href="article?action=view-article&articleId=${lastestArticle.articleId}" class="media-left"> <img
-											alt="" src="${lastestArticle.coverImage.imagePath}">
-										</a>
-										<div class="media-body">
-											<a href="article?action=view-article&articleId=${lastestArticle.articleId}" class="catg_title">
-												${lastestArticle.title}</a>
+								<c:forEach var="lastestArticle" items="${lastestArticles}">
+									<li>
+										<div class="media">
+											<a
+												href="article?action=view-article&articleId=${lastestArticle.articleId}"
+												class="media-left"> <img alt=""
+												src="${lastestArticle.coverImage.imagePath}">
+											</a>
+											<div class="media-body">
+												<a
+													href="article?action=view-article&articleId=${lastestArticle.articleId}"
+													class="catg_title"> ${lastestArticle.title}</a>
+											</div>
 										</div>
-									</div>
-								</li>
-							</c:forEach>
+									</li>
+								</c:forEach>
 							</ul>
 							<div id="next-button">
 								<i class="fa  fa-chevron-down"></i>
@@ -606,17 +617,23 @@
 								<span>Popular Post</span>
 							</h2>
 							<ul class="spost_nav">
-								<li>
-									<div class="media wow fadeInDown">
-										<a href="pages/single_page.html" class="media-left"> <img
-											alt="" src="images/post_img1.jpg">
-										</a>
-										<div class="media-body">
-											<a href="pages/single_page.html" class="catg_title">
-												Aliquam malesuada diam eget turpis varius 1</a>
+								<c:forEach var="sortedArticleByView"
+									items="${sortedArticlesByView}">
+									<li>
+										<div class="media wow fadeInDown">
+											<a
+												href="article?action=view-article&articleId=${sortedArticleByView.articleId}"
+												class="media-left"> <img alt=""
+												src="${sortedArticleByView.coverImage.imagePath}">
+											</a>
+											<div class="media-body">
+												<a
+													href="article?action=view-article&articleId=${sortedArticleByView.articleId}"
+													class="catg_title">${sortedArticleByView.title}</a>
+											</div>
 										</div>
-									</div>
-								</li>
+									</li>
+								</c:forEach>
 								<li>
 									<div class="media wow fadeInDown">
 										<a href="pages/single_page.html" class="media-left"> <img

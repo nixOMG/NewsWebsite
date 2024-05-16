@@ -71,7 +71,7 @@ public class WebController extends HttpServlet {
 				entityManager.refresh(user);
 			}
 			CategoryDB categoryDB = new CategoryDB(entityManager);
-			List<Category> categories = categoryDB.getAllCategories();
+			List<Category> categories = categoryDB.getParentCategories();
 			for (Category category : categories) {
 				entityManager.refresh(category);
 			}
@@ -79,8 +79,8 @@ public class WebController extends HttpServlet {
 			ArticleDB articleDB=new ArticleDB(entityManager);
 			List<Article> articles=articleDB.getArticlesByStatus("approved");
 			List<Article> lastestArticles=articleDB.getTop10ArticlesSortedByTime("approved");
-			
-			
+			List<Article> sortedArticlesByView = articleDB.getArticlesSortedByViews();
+			request.setAttribute("sortedArticlesByView", sortedArticlesByView); 
 			request.setAttribute("lastestArticles", lastestArticles);
 			request.setAttribute("articles", articles);
 			request.setAttribute("categories", categories);

@@ -128,6 +128,26 @@ public class ArticleDB {
 
 	    return relatedArticles;
 	}
+	
+	public List<Article> getArticlesBySameParentCategory(Category category) {
+	    List<Article> articles = new ArrayList<>();
+
+	    // Check if the category has a parent category
+	    if (category.getParent() != null) {
+	        Category parentCategory = category.getParent();
+
+	        // Find articles in categories with the same parent category, excluding the specified article
+	        TypedQuery<Article> query = entityManager.createQuery(
+	            "SELECT a FROM Article a WHERE a.category.parent = :parentCategory",
+	            Article.class);
+	        query.setParameter("parentCategory", parentCategory);
+	        
+	        articles = query.getResultList();
+	    }
+
+	    return articles;
+	}
+
 	public List<Article> getArticlesSortedByViews() {
 	    TypedQuery<Article> query = entityManager.createQuery(
 	        "SELECT a FROM Article a ORDER BY a.views DESC",

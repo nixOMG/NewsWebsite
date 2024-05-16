@@ -34,7 +34,7 @@ a:focus {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald',sans-serif
+    font-family: 'Calibri'
 }
 
 h2 {
@@ -355,7 +355,7 @@ img:hover {
 .navbar-inverse .navbar-nav > li > a {
     border-left: 1px solid #383838;
     color: #ddd;
-    font-family: 'Oswald',sans-serif;
+    font-family: 'Time new roman',sans-serif;
     display: inline-block;
     height: 50px;
     line-height: 50px;
@@ -407,7 +407,7 @@ img:hover {
     color: #ddd;
     background-color: #222;
     padding: 10px 20px;
-    font-family: 'Oswald',sans-serif;
+    font-family: 'Time new roman',sans-serif;
     -webkit-transition: all 0.5s;
     -mz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -438,7 +438,7 @@ img:hover {
 
 .latest_newsarea span {
     color: #fff;
-    font-family: Oswald,sans-serif;
+    font-family: Time new roman,sans-serif;
     font-size: 15px;
     left: 0;
     line-height: 1.8em;
@@ -673,7 +673,7 @@ img:hover {
 .latest_post > h2 {
     background: none repeat scroll 0 0 #151515;
     color: #fff;
-    font-family: 'Oswald',sans-serif;
+    font-family: 'Time new roman',sans-serif;
     font-size: 18px;
     margin-top: 5px;
     font-weight: 400;
@@ -758,7 +758,7 @@ img:hover {
 .single_post_content > h2 {
     background: none repeat scroll 0 0 #151515;
     color: #fff;
-    font-family: 'Oswald',sans-serif;
+    font-family: 'Time new roman',sans-serif;
     font-size: 18px;
     font-weight: 400;
     margin-bottom: 10px;
@@ -804,7 +804,7 @@ img:hover {
 
 .bsbig_fig figcaption {
     color: #333;
-    font-family: "Oswald",sans-serif;
+    font-family: "Time new roman",sans-serif;
     font-size: 23px;
     font-weight: 300;
     margin-top: 10px;
@@ -845,7 +845,7 @@ img:hover {
 }
 
 .spost_nav .media-body > a {
-    font-family: "Oswald",sans-serif
+    font-family: "Time new roman",sans-serif
 }
 
 .featured_img {
@@ -1073,7 +1073,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .single_sidebar > h2 {
     background: none repeat scroll 0 0 #151515;
     color: #fff;
-    font-family: "Oswald",sans-serif;
+    font-family: "Time new roman",sans-serif;
     font-size: 18px;
     font-weight: 400;
     margin-bottom: 10px;
@@ -1130,7 +1130,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
     font-size: 15px;
     border-radius: 0;
     border: none;
-    font-family: "Oswald",sans-serif;
+    font-family: "Time new roman",sans-serif;
     -webkit-transition: all 0.5s;
     -mz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -1203,7 +1203,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 
 .footer_widget > h2 {
     border-bottom: 3px solid #666;
-    font-family: Oswald,arial,Georgia,serif;
+    font-family: Time new roman,arial,Georgia,serif;
     font-size: 16px;
     padding: 10px 0;
     text-transform: uppercase
@@ -1323,7 +1323,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 
 .single_page > h1 {
     color: #333;
-    font-family: Oswald,arial,Georgia,serif;
+    font-family: Time new roman,arial,Georgia,serif;
     font-size: 30px;
     line-height: 1.4em;
     margin: 10px 0 -10px;

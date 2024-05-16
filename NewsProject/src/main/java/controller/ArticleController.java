@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,9 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import entity.Article;
 import entity.Category;
+import entity.Comment;
 import entity.Favourite;
 import entity.User;
 import entityManager.ArticleDB;
+import entityManager.CategoryDB;
+import entityManager.CommentDB;
 import entityManager.FavouriteDB;
 import utils.DBUtil;
 
@@ -55,6 +59,9 @@ public class ArticleController extends HttpServlet {
 		} else if (user!=null && action != null && action.equals("remove-favourite")){
 			handleRemoveFavourite(request, response);
 		} 
+		else if (action != null && action.equals("get-article-by-category")){
+			getArticleByCategory(request, response);
+		} 
 		else {
 			RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);
@@ -63,7 +70,35 @@ public class ArticleController extends HttpServlet {
 			
 	}
 
-    private void searchArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void getArticleByCategory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    	request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+
+	    int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+	    EntityManager entityManager = DBUtil.getEntityManager();
+	    try {
+	        HttpSession session = request.getSession();
+	        User user = (User) session.getAttribute("loggedInUser");
+	        
+	        ArticleDB articleDB=new ArticleDB(entityManager);
+	        // Get the related articles
+	        List<Article> searchResults = articleDB.getArticlesByCategoryId(categoryId);
+
+	        request.setAttribute("loggedInUser", user);   
+	        request.setAttribute("searchResults", searchResults);
+	        
+	        RequestDispatcher rd = request.getRequestDispatcher("/search-results.jsp");
+	        rd.forward(request, response);
+	    } catch (ServletException | IOException e) {
+	        e.printStackTrace();
+	        // Forward to an error page or handle the error appropriately
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+	        dispatcher.forward(request, response);
+	    }
+		
+	}
+
+	private void searchArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
@@ -94,8 +129,17 @@ public class ArticleController extends HttpServlet {
 
 	        ArticleDB articleDB = new ArticleDB(entityManager);            
 	        Article article = articleDB.getArticleById(articleId);
+	        
+	        Long view=article.getViews();
+	        view+=1;
+	        article.setViews(view);
+	        articleDB.updateArticle(article);
+	        
 	        FavouriteDB favouriteDB = new FavouriteDB(entityManager);
 	        boolean isFavourite = favouriteDB.isFavourite(user, articleId);
+	        
+	        CommentDB commentDB = new CommentDB(entityManager);
+	        List<Comment> comments = commentDB.getCommentsByArticleId(articleId);
 
 	        // Get the related articles
 	        Category category = article.getCategory();
@@ -103,7 +147,9 @@ public class ArticleController extends HttpServlet {
 	        List<Article> sortedArticlesByView = articleDB.getArticlesSortedByViews();
 
 	        request.setAttribute("isFavourite", isFavourite);
+	        request.setAttribute("comments", comments);
 	        request.setAttribute("article", article);
+	        request.setAttribute("loggedInUser", user);   
 	        request.setAttribute("relatedArticles", relatedArticles); // Set related articles in request
 	        request.setAttribute("sortedArticlesByView", sortedArticlesByView); 
 	        
