@@ -199,6 +199,18 @@
 						                            </div>
 						                        </div>
 						                    </li>
+						                    <li>
+						                        <div class="media wow fadeInDown">
+						                            <div class="row align-items-center">
+						                                <div class="col-lg-3 col-md-3 col-sm-3">
+						                                    <h4>RoleID:</h4>
+						                                </div>
+						                                <div class="col-lg-9 col-md-9 col-sm-9">
+						                                    <h5>${user.role.roleId}</h5>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </li>
 						                </ul>
 						            </div>
 						        </aside>
