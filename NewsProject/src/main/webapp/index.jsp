@@ -79,7 +79,7 @@
 														Category</a></li>
 											</c:if>
 											<c:if test="${loggedInUser.getRole().getRoleId()==6}">
-												<li><a class="dropdown-item" href="manage-users">Admin's
+												<li><a class="dropdown-item" href="admin">Admin's
 														Page</a></li>
 												<li><a class="dropdown-item" href="manage-category">Manage
 														Category</a></li>
@@ -89,6 +89,9 @@
 											</li>
 											<li><a class="dropdown-item" href="home?action=sign-out">Sign
 													out</a></li>
+											<li style="display: none;">
+												    <a class="dropdown-item" href="manage-user-role"></a>
+												</li>
 										</ul>
 									</div>
 								</c:when>

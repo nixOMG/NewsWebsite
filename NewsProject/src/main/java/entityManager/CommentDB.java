@@ -7,6 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entity.Comment;
+import entity.User;
 import entity.Comment;
 
 public class CommentDB {
@@ -76,5 +77,16 @@ public class CommentDB {
     public Comment getCommentById(int commentId) {
         return entityManager.find(Comment.class, commentId);
     }
+
+	public List<Comment> getAllComments() {
+		try {
+    		TypedQuery<Comment> query = entityManager.createQuery("SELECT u FROM Comment u", Comment.class);
+            return query.getResultList();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
     
 }

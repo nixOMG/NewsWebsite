@@ -39,7 +39,7 @@ public class UserController extends HttpServlet {
 
 		request.setAttribute("userId", user.getUserId());
 
-		if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 5)) {
+		if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 6)) {
 			if (action != null && action.equals("get-page-edit-user-info")) {
 				getPageEditUserInfo(request, response);
 			} else if (action != null && action.equals("get-user-favourite-articles")) {
@@ -150,7 +150,7 @@ public class UserController extends HttpServlet {
         
         HttpSession session = request.getSession();        
         User user = (User) session.getAttribute("loggedInUser");
-        if (user != null && (user.getRole().getRoleId() == 2 || user.getRole().getRoleId() == 3 || user.getRole().getRoleId() == 4 || user.getRole().getRoleId() == 5)) {
+        if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 6)) {
             if (action != null && action.equals("edit-user-info")) {
                 handleEditUserInfo(request, response);
             }
