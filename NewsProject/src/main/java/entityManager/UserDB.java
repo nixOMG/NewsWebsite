@@ -132,6 +132,19 @@ public class UserDB {
             return null;
         }
     }
+    public List<User>getUsersByRole(String roleName) {
+        try {
+            TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.role.description = :roleName",
+                User.class
+            );
+            query.setParameter("roleName", roleName);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
     
     public List<User> getUsersByRoleId(int roleId) {
         try {
@@ -146,6 +159,22 @@ public class UserDB {
             return Collections.emptyList();
         }
     }
+    
+    public long countUsersByRoleIdAndUserId(int roleId, int userId) {
+        try {
+            TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.role.roleId = :roleId AND u.id = :userId",
+                Long.class
+            );
+            query.setParameter("roleId", roleId);
+            query.setParameter("userId", userId);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
     public List<User> getUsersPaged(int pageNumber, int pageSize, int roleId) {
         TypedQuery<User> query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.role.roleId = :roleId", User.class);

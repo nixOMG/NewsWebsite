@@ -136,7 +136,7 @@
                                         <div class="contact_area">
                                             <h2>Delete Article</h2>
                                             <form action="writer-manage-articles" method="post" class="contact_form"
-                                                enctype="multipart/form-data" accept-charset="UTF-8">
+                                                enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="return confirmDelete()">
                                                 <input type="hidden" name="action" value="delete-article-writer" />
                                                 <input type="hidden" name="articleId" value="${article.articleId}"/>
 
@@ -233,7 +233,7 @@
                     <script>
                         $(document).ready(function () {
                             // Initialize the rich text editor
-                            $('.content').val('${article.content}');
+                            $('.content').val('${escapedContent}');
 					    	 var editor = $('.content').richText({
 					 	    	fileUpload:false,
 					     		videoEmbed: false,
@@ -296,6 +296,18 @@
 
 
                     </script>
+                    <script>
+						function confirmDelete() {
+							// Show a modal dialog to confirm deletion
+							if (confirm("Bạn có chắc chắn muốn xóa bài báo này không?")) {
+								// If the user confirms, return true to allow form submission
+								return true;
+							} else {
+								// If the user cancels, return false to prevent form submission
+								return false;
+							}
+						}
+					</script>
                 </body>
 
                 </html>

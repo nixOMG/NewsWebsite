@@ -62,7 +62,7 @@ public class Article {
 	@Column(name = "views")
 	private Long views;
 
-	@OneToMany(mappedBy="article")
+	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
 	
     public Long getViews() {

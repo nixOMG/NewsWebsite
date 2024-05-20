@@ -179,6 +179,9 @@ public class WriterController extends HttpServlet {
 			entityManager.close();
 
 			if (article != null && categories != null && tags != null) {
+				String escapedContent = StringEscapeUtils.escapeEcmaScript(article.getContent());
+				
+				request.setAttribute("escapedContent", escapedContent);
 				request.setAttribute("article", article);
 				request.setAttribute("categories", categories);
 				request.setAttribute("tags", tags);

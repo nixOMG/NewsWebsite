@@ -68,6 +68,10 @@
 											<li><a class="dropdown-item"
 												href="manage-user-info?action=get-user-favourite-articles">Favourite</a>
 											</li>
+											<c:if test="${loggedInUser.getRole().getRoleId()==2}">
+												<li><a class="dropdown-item"
+													href="subscription.jsp">Buy subscription</a></li>
+											</c:if>
 											<c:if test="${loggedInUser.getRole().getRoleId()==4}">
 												<li><a class="dropdown-item"
 													href="writer-manage-articles">Writer's Page</a></li>
@@ -79,7 +83,7 @@
 														Category</a></li>
 											</c:if>
 											<c:if test="${loggedInUser.getRole().getRoleId()==6}">
-												<li><a class="dropdown-item" href="manage-users">Admin's
+												<li><a class="dropdown-item" href="admin">Admin's
 														Page</a></li>
 												<li><a class="dropdown-item" href="manage-category">Manage
 														Category</a></li>
@@ -89,6 +93,7 @@
 											</li>
 											<li><a class="dropdown-item" href="home?action=sign-out">Sign
 													out</a></li>
+													<li style="display: none;"><a class="dropdown-item" href="manage-user-role"></a></li>
 										</ul>
 									</div>
 								</c:when>

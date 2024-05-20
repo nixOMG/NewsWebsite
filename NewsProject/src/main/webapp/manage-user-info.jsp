@@ -69,22 +69,25 @@
                                 </div>
                                 <div id="navbar" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav main_nav">
-                                        <li class="active"><a href="home"><span
-                                                    class="fa fa-home desktop-home"></span><span
-                                                    class="mobile-show">Home</span></a></li>
-                                        <li><a href="#">Technology</a></li>
-                                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                role="button" aria-expanded="false">Mobile</a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Android</a></li>
-                                                <li><a href="#">Samsung</a></li>
-                                                <li><a href="#">Nokia</a></li>
-                                                <li><a href="#">Walton Mobile</a></li>
-                                                <li><a href="#">Sympony</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Laptops</a></li>
-                                        <li><a href="#">Tablets</a></li>
+                                        <c:forEach var="category" items="${categories}">
+									        <c:choose>
+									            <c:when test="${not empty category.children}">
+									                <li class="dropdown">
+									                    <a href="article?action=get-article-by-category&categoryId=${category.categoryId}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+									                        ${category.description}
+									                    </a>
+									                    <ul class="dropdown-menu" role="menu">
+									                        <c:forEach var="child" items="${category.children}">
+									                            <li><a href="article?action=get-article-by-category&categoryId=${child.categoryId}">${child.description}</a></li>
+									                        </c:forEach>
+									                    </ul>
+									                </li>
+									            </c:when>
+									            <c:otherwise>
+									                <li><a href="article?action=get-article-by-category&categoryId=${category.categoryId}">${category.description}</a></li>
+									            </c:otherwise>
+									        </c:choose>
+									    </c:forEach>
                                         <li><a href="contact.html">Contact Us</a></li>
                                         <li><a href="404.html">404 Page</a></li>
                                     </ul>
@@ -95,26 +98,18 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="latest_newsarea"> <span>Latest News</span>
-                                        <ul id="ticker01" class="news_sticker">
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My First
-                                                    News Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Second
-                                                    News Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Third
-                                                    News Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Four News
-                                                    Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Five News
-                                                    Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Six News
-                                                    Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Seven
-                                                    News Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Eight
-                                                    News Item</a></li>
-                                            <li><a href="#"><img src="images/news_thumbnail2.jpg" alt="">My Nine News
-                                                    Item</a></li>
-                                        </ul>
+										<ul id="ticker01" class="news_sticker">
+											<c:forEach var="lastestArticle" items="${lastestArticles}">
+												<li><a
+													href="article?action=view-article&articleId=${lastestArticle.articleId}">
+														<img alt="" src="${lastestArticle.coverImage.imagePath}">${lastestArticle.title}
+												</a></li>
+											</c:forEach>
+											<li><a href="#"><img src="images/news_thumbnail3.jpg"
+													alt="">My First News Item</a></li>
+											<li><a href="#"><img src="images/news_thumbnail3.jpg"
+													alt="">My Second News Item</a></li>
+										</ul>
                                         <div class="social_area">
                                             <ul class="social_nav">
                                                 <li class="facebook"><a href="#"></a></li>
@@ -136,14 +131,14 @@
 						        <aside class="right_content">
 						            <div class="single_sidebar">
 						                <h2><span>Your Account Information</span></h2>
-						                <button class="btn btn-green" onclick="window.location.href='manage-user-info?action=get-page-edit-user-info'">Edit account information</button>
+						                <button class="btn btn-green" onclick="window.location.href='manage-user-info?action=get-page-edit-user-info&userId=${user.userId}'">Edit account information</button>
 						                
 						                <ul class="spost_nav">
 						                    <li>
 						                        <div class="media wow fadeInDown">
 						                            <div class="row align-items-center">
 						                                <div class="col-lg-3 col-md-3 col-sm-3">
-						                                    <h4>ID:</h4>
+						                                    <h4>ID:</h4> 
 						                                </div>
 						                                <div class="col-lg-9 col-md-9 col-sm-9">
 						                                    <h5>${user.userId}</h5>

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import entity.Article;
 import entity.User;
+import entityManager.ArticleDB;
+import entityManager.CategoryDB;
 import entityManager.FavouriteDB;
 import entityManager.UserDB;
 import utils.DBUtil;
@@ -39,7 +41,7 @@ public class UserController extends HttpServlet {
 
 		request.setAttribute("userId", user.getUserId());
 
-		if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 5)) {
+		if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 6)) {
 			if (action != null && action.equals("get-page-edit-user-info")) {
 				getPageEditUserInfo(request, response);
 			} else if (action != null && action.equals("get-user-favourite-articles")) {
@@ -118,14 +120,16 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int userId = (int) request.getAttribute("userId");
-		System.out.println(userId);
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loggedInUser");
+		System.out.println("user: " + user.getUsername());
+		int userId=user.getUserId();
+		System.out.println(user.getUserId());
 		try {
 			EntityManager entityManager = null;
 			try {
-				entityManager = DBUtil.getEntityManager();
-				UserDB userDB = new UserDB(entityManager);
-				User user = userDB.getUserById(userId);
+				UserDB userDB = new UserDB(entityManager);		
+				
 				request.setAttribute("userId", userId);
 				request.setAttribute("user", user);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/manage-user-info.jsp");
@@ -150,7 +154,7 @@ public class UserController extends HttpServlet {
         
         HttpSession session = request.getSession();        
         User user = (User) session.getAttribute("loggedInUser");
-        if (user != null && (user.getRole().getRoleId() == 2 || user.getRole().getRoleId() == 3 || user.getRole().getRoleId() == 4 || user.getRole().getRoleId() == 5)) {
+        if (user != null && (user.getRole().getRoleId() >= 2 && user.getRole().getRoleId() <= 6)) {
             if (action != null && action.equals("edit-user-info")) {
                 handleEditUserInfo(request, response);
             }

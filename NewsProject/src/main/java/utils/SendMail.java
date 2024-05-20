@@ -47,7 +47,7 @@ public class SendMail {
         // Configure API key authorization: api-key
         ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("api-key");
       //Continue the setApiKey with this key:  8944bf0d089f963b597d85457f5eea39cb458b060d7404eda77ab9cc5a-w1x4n8T1BoEszfrg
-        apiKey.setApiKey("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");
+        apiKey.setApiKey("xkeysib-b8a86b...");
         
         String username=request.getParameter("username");
         String userEmail= request.getParameter("email");

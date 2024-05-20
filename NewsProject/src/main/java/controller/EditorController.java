@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import entity.Article;
 import entity.Category;
 import entity.Tag;
@@ -147,6 +149,10 @@ public class EditorController extends HttpServlet {
 			entityManager.close();
 
 			if (article != null && categories != null && tags != null) {
+				
+				String escapedContent = StringEscapeUtils.escapeEcmaScript(article.getContent());
+				
+				request.setAttribute("escapedContent", escapedContent);
 				request.setAttribute("article", article);
 				request.setAttribute("categories", categories);
 				request.setAttribute("tags", tags);

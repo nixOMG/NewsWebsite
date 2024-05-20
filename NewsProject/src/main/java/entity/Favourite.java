@@ -21,7 +21,7 @@ public class Favourite {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne( cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "article_id")
 	private Article article;
 

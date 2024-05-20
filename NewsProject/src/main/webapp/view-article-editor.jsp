@@ -238,7 +238,7 @@
                     <script>
                         $(document).ready(function () {
                             // Initialize the rich text editor
-                            $('.content').val('${article.content}');
+                            $('.content').val('${escapedContent}');
 					    	 var editor = $('.content').richText({
 					 	    	fileUpload:false,
 					     		videoEmbed: false,
